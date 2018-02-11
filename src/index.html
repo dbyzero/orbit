@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Orbit</title>
+        <script>
+            window.addEventListener("load", function (){
+                var head = document.getElementsByTagName('head')[0];
+                var appScriptElem = document.createElement('script');
+                appScriptElem.type = 'text/javascript';
+                appScriptElem.src = '/app.js?v={{VERSION}}';
+                appScriptElem.charset = 'utf-8';
+                head.appendChild(appScriptElem);
+            });
+        </script>
+        <link href="/css/preload.css?v={{VERSION}}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="">
+            <div id="root">
+            </div>
+            <div id="app-loader">
+                <div class="preload-title" src="/assets/images/loading.jpg">
+                    Orbit Engine
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
