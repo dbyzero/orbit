@@ -5,7 +5,6 @@ import { Route, IndexRoute } from 'react-router';
 import Layout from './components/Layout.jsx';
 import MainMenu from './components/menu/MainMenu.jsx';
 import Game from './components/game/Game.jsx';
-import Test1 from './components/test/Test1.jsx';
 
 export default () =>
     <Route path="/" component={ Layout }>
