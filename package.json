@@ -8,7 +8,6 @@
     "build-prod": "rm -rf ./build/* && webpack --env.config=prod -p",
     "build-dev": "rm -rf ./build/* && webpack --env.config=dev -p",
     "build-local": "rm -rf ./build/* && webpack --env.config=local -p",
-    "deploy-prod": "rsync -vzr --exclude 'app.js.map' --exclude '.gitignore' build/* half@jupiter.oopss.org:/var/www/deimos.dbyzero.com",
     "webpack": "webpack --progress -w"
   },
   "repository": {
