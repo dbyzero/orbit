@@ -31,8 +31,17 @@ class GameScene extends React.Component {
             updateCount: 0,
             lastCamera: Object.assign({}, props.camera)
         };
+        // tricks to have callback function bind to "this" when function is added as a listener
         this.handleWindowResize = this.handleWindowResize.bind(this);
+        this.onSceneClicked = this.onSceneClicked.bind(this);
+        this.onSceneNotClickedAnymore = this.onSceneNotClickedAnymore.bind(this);
+        this.onZoom = this.onZoom.bind(this);
+        this.onMouseMove= this.onMouseMove.bind(this);
     }
+
+    /**
+     * React lifecyle functions
+     */
 
     componentDidMount() {
         // call a resize to scene initial game scene size
@@ -59,84 +68,6 @@ class GameScene extends React.Component {
             });
         });
     }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize, false);
-    }
-
-    init() {
-        PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-        this.state.app.ticker.add(this.update.bind(this));
-        this.state.app.view.addEventListener('pointermove', (e) => {
-            if (this.state.isBtnPushed) {
-                this.moveCamera(e.movementX, e.movementY);
-            }
-        });
-        this.state.app.view.addEventListener('pointerdown', this.onSceneClicked.bind(this));
-        this.state.app.view.addEventListener('pointerup', this.onSceneNotClickedAnymore.bind(this));
-        this.state.app.view.addEventListener('pointercancel', this.onSceneNotClickedAnymore.bind(this));
-        this.state.app.view.addEventListener('pointerout', this.onSceneNotClickedAnymore.bind(this));
-        this.state.app.view.addEventListener('mousewheel', this.onZoom.bind(this));
-        this.state.app.view.addEventListener('mousemove', this.onMouseMove.bind(this));
-        this.state.app.view.addEventListener('gesturechange', this.onGestureChange.bind(this));
-        this.state.app.stage.addChild(this.state.container);
-    }
-
-    moveCamera(dx, dy) {
-        this.props.dispatch(moveCamera(dx, dy));
-    }
-
-    loadResources() {
-        return new Promise(resolv => {
-            // check if already loaded
-            if (PIXI.loader.resources.spritesheet) {
-                resolv(PIXI.loader.resources);
-            } else {
-                PIXI.loader
-                    .add('spritesheet', '/assets/sprites/spritesheet.png')
-                    .load((loader, resources) => {
-                        resolv(resources);
-                    });
-            }
-        }).then(resources => {
-            return new Promise(resolv => {
-                new PIXI.Spritesheet(
-                    resources.spritesheet.texture.baseTexture,
-                    require('../../../assets/sprites/spritesheet.json'),
-                    'spritesheet'
-                ).parse(() => {
-                    resolv(resources);
-                });
-            });
-        }).catch((err) => {
-            throw Error(err);
-        });
-    }
-
-    onSceneClicked() {
-        this.setState({
-            isBtnPushed: true
-        });
-    }
-
-    onMouseMove(/* e */) {
-    }
-
-    onSceneNotClickedAnymore() {
-        this.setState({
-            isBtnPushed: false
-        });
-    }
-
-    onZoom(e) {
-        this.props.dispatch(zoomCamera(e.wheelDeltaY));
-    }
-
-    onGestureChange(e) {
-        // TO TEST
-        this.props.dispatch(zoomCamera(10 * (1 - e.scale)));
-    }
-
     componentWillReceiveProps(props) {
         // check camera change
         const oldCamera = Object.assign({}, this.state.lastCamera);
@@ -154,23 +85,54 @@ class GameScene extends React.Component {
         });
     }
 
-    update() {
-        const newState = Object.assign({}, this.state);
+    render() {
+        return (
+            <div id="game-scene" ref={(el) => {
+                this.gameScene = el;
+            }}/>
+        );
+    }
 
-        // FPS
-        if (this.state.FPS && this.state.lastFPSUpdate + 200 < newState.app.ticker.lastTime) {
-            if (newState.avgFPS.length === 10) {
-                newState.avgFPS.shift();
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize, false);
+        this.state.app.view.removeEventListener('pointerdown', this.onSceneClicked, false);
+        this.state.app.view.removeEventListener('pointerup', this.onSceneNotClickedAnymore, false);
+        this.state.app.view.removeEventListener('pointercancel', this.onSceneNotClickedAnymore, false);
+        this.state.app.view.removeEventListener('pointerout', this.onSceneNotClickedAnymore, false);
+        this.state.app.view.removeEventListener('mousewheel', this.onZoom, false);
+        this.state.app.view.removeEventListener('mousemove', this.onMouseMove, false);
+
+        // destrop PIXI application
+        this.state.app.stop();
+        this.state.app.destroy();
+
+        // PixiJS is a state machine, so we reset loader..
+        PIXI.loader.destroy();
+        PIXI.loader = new PIXI.loaders.Loader();
+        // ... and reset scale mode
+        PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.LINEAR;
+    }
+
+
+    /**
+     * PixiJS lifecycle functions
+     */
+
+    init() {
+        PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+        this.state.app.ticker.add(this.update.bind(this));
+        this.state.app.view.addEventListener('pointermove', (e) => {
+            if (this.state.isBtnPushed) {
+                this.moveCamera(e.movementX, e.movementY);
             }
-            newState.avgFPS.push(newState.app.ticker.FPS);
-
-            const FPS = newState.avgFPS.reduce((pv, cv) => pv+cv, 0)/newState.avgFPS.length;
-            newState.FPS.text = Math.round(FPS) + ' FPS';
-
-            newState.lastFPSUpdate = newState.app.ticker.lastTime;
-        }
-
-        this.setState(newState);
+        });
+        this.state.app.view.addEventListener('pointerdown', this.onSceneClicked, false);
+        this.state.app.view.addEventListener('pointerup', this.onSceneNotClickedAnymore, false);
+        this.state.app.view.addEventListener('pointercancel', this.onSceneNotClickedAnymore, false);
+        this.state.app.view.addEventListener('pointerout', this.onSceneNotClickedAnymore, false);
+        this.state.app.view.addEventListener('mousewheel', this.onZoom, false);
+        this.state.app.view.addEventListener('mousemove', this.onMouseMove, false);
+        this.state.app.stage.addChild(this.state.container);
     }
 
     start() {
@@ -239,17 +201,50 @@ class GameScene extends React.Component {
         this.state.container.height = this.state.container.initialHeight * this.props.camera.zoom;
     }
 
-    stop() {
-        this.state.app.stop();
+    update() {
+        const newState = Object.assign({}, this.state);
+
+        // FPS
+        if (this.state.FPS && this.state.lastFPSUpdate + 200 < newState.app.ticker.lastTime) {
+            if (newState.avgFPS.length === 10) {
+                newState.avgFPS.shift();
+            }
+            newState.avgFPS.push(newState.app.ticker.FPS);
+
+            const FPS = newState.avgFPS.reduce((pv, cv) => pv+cv, 0)/newState.avgFPS.length;
+            newState.FPS.text = Math.round(FPS) + ' FPS';
+
+            newState.lastFPSUpdate = newState.app.ticker.lastTime;
+        }
+
+        this.setState(newState);
     }
 
-    handleWindowResize() {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        this.state.app.view.style.width = width+'px';
-        this.state.app.view.style.height = height+'px';
-        this.state.app.renderer.resize(width, height);
-        this.props.dispatch(cameraResize(width, height));
+
+    /**
+     * Custom functions
+     */
+
+    loadResources() {
+        return new Promise(resolv => {
+            PIXI.loader
+                .add('spritesheet', '/assets/sprites/spritesheet.png')
+                .load((loader, resources) => {
+                    resolv(resources);
+                });
+        }).then(resources => {
+            return new Promise(resolv => {
+                new PIXI.Spritesheet(
+                    resources.spritesheet.texture.baseTexture,
+                    require('../../../assets/sprites/spritesheet.json'),
+                    'spritesheet'
+                ).parse(() => {
+                    resolv(resources);
+                });
+            });
+        }).catch((err) => {
+            throw Error(err);
+        });
     }
 
     move() {
@@ -284,12 +279,40 @@ class GameScene extends React.Component {
         this.props.dispatch(updateTotalDisplayShown(spriteTotalShown));
     }
 
-    render() {
-        return (
-            <div id="game-scene" ref={(el) => {
-                this.gameScene = el;
-            }}/>
-        );
+    moveCamera(dx, dy) {
+        this.props.dispatch(moveCamera(dx, dy));
+    }
+
+    /**
+     * Callback functions
+     */
+
+    onMouseMove(/* e */) {
+    }
+
+    handleWindowResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        this.state.app.view.style.width = width+'px';
+        this.state.app.view.style.height = height+'px';
+        this.state.app.renderer.resize(width, height);
+        this.props.dispatch(cameraResize(width, height));
+    }
+
+    onSceneClicked() {
+        this.setState({
+            isBtnPushed: true
+        });
+    }
+
+    onSceneNotClickedAnymore() {
+        this.setState({
+            isBtnPushed: false
+        });
+    }
+
+    onZoom(e) {
+        this.props.dispatch(zoomCamera(e.wheelDeltaY));
     }
 }
 
