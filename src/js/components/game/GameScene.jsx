@@ -76,7 +76,7 @@ class GameScene extends React.Component {
         this.state.app.view.addEventListener('pointerup', this.onSceneNotClickedAnymore.bind(this));
         this.state.app.view.addEventListener('pointercancel', this.onSceneNotClickedAnymore.bind(this));
         this.state.app.view.addEventListener('pointerout', this.onSceneNotClickedAnymore.bind(this));
-        this.state.app.view.addEventListener('mousewheel', this.onSceneScrolled.bind(this));
+        this.state.app.view.addEventListener('mousewheel', this.onZoom.bind(this));
         this.state.app.view.addEventListener('mousemove', this.onMouseMove.bind(this));
         this.state.app.view.addEventListener('gesturechange', this.onGestureChange.bind(this));
         this.state.app.stage.addChild(this.state.container);
@@ -128,7 +128,7 @@ class GameScene extends React.Component {
         });
     }
 
-    onSceneScrolled(e) {
+    onZoom(e) {
         this.props.dispatch(zoomCamera(e.wheelDeltaY));
     }
 
