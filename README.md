@@ -22,15 +22,15 @@ We provide a tested flow and architecture and already configured tools, as build
 
 You need `git`, `npm`, `nodejs` to run the project.
 
-### 1st. Clone repository ###
+### 1/ Clone repository ###
 
 `git clone git@github.com:dbyzero/orbit.git`
 
-### 2nd. Install dependencies ###
+### 2/ Install dependencies ###
 
 `npm install`
 
-### 3th. Start project ###
+### 3/ Start project ###
 
 `npm start`
 
