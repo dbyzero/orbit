@@ -1,14 +1,18 @@
+// Libs
 import moment from 'moment';
 import React from 'react';
-import store from './store';
-import i18n from './i18n';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { I18nextProvider } from 'react-i18next';
-import '../scss/app.scss';
 
-import getRoutes from './routes.jsx';
+// Componemt
+import store from '../../store';
+import i18n from '../../i18n';
+import getRoutes from '../../routes.jsx';
+
+// Style
+import './style.scss';
 
 const startApp = () => {
     const rootElement = document.getElementById('root');
@@ -33,5 +37,4 @@ console.log('\n'+
 '╚██████╔╝██║  ██║██████╔╝██║   ██║   \n' +
 ' ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝   ╚═╝   \n' +
 '\n'+
-'Version '+VERSION+' - Copyright '+moment().format('YYYY') + ' Deimos');
-
+'Version '+VERSION+' - Copyright '+moment().format('YYYY') + ' Orbit');

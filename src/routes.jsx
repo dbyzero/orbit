@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-// Top page
-import Layout from './components/Layout.jsx';
-import MainMenu from './components/menu/MainMenu.jsx';
-import Game from './components/game/Game.jsx';
+// Modules
+import Layout from './modules/layout';
+import MainMenu from './modules/mainmenu';
+import Game from './modules/game/';
 
 export default () =>
     <Route path="/" component={ Layout }>

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const os = require('os');
 const packageConf = require('./package');
@@ -31,13 +32,13 @@ module.exports = function (env) {
     console.log(configuration);
 
     return {
-        entry: './src/js/app.jsx',
+        entry: './src/modules/core/',
         output: {
             path: __dirname + '/build/',
             filename: 'app.js',
             sourceMapFilename: 'app.js.map'
         },
-        devtool: isProduction ? 'source-map' : 'eval',
+        devtool: isProduction ? 'source-map' : 'eval-source-map',
         devServer: {
             host: '0.0.0.0',
             contentBase: 'build/',
@@ -104,12 +105,12 @@ module.exports = function (env) {
                     to: 'index.html'
                 },
                 {
-                    from: 'src/locales',
-                    to: 'locales'
+                    from: 'src/index.css',
+                    to: 'index.css'
                 },
                 {
-                    from: 'src/css',
-                    to: 'css'
+                    from: 'src/locales',
+                    to: 'locales'
                 },
                 {
                     from: 'src/assets/images/',
@@ -128,6 +129,11 @@ module.exports = function (env) {
                     to: 'favicon.png'
                 }
             ]),
+            new HtmlWebPackPlugin({
+                hash: true,
+                template: './src/index.html',
+                filename: './index.html'
+            }),
             new webpack.optimize.UglifyJsPlugin({
                 minimize: isProduction,
                 compress: isProduction,

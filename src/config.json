@@ -1,0 +1,30 @@
+{
+    "apiVersion": "1",
+    "modules": [
+        "camera",
+        "core",
+        "game",
+        "layout",
+        "loader",
+        "mainmenu"
+    ],
+    "routes": {
+        "defaultRoute": "/game",
+        "modules": {
+            "game": "/game"
+        }
+    },
+    "localeFiles": [
+        "alerts",
+        "common",
+        "notifications",
+        "user",
+        "group",
+        "graph",
+        "devices",
+        "descriptions",
+        "dashboard",
+        "errors",
+        "search"
+    ]
+}

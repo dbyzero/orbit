@@ -2,6 +2,8 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { Link } from 'react-router';
 
+import './style.scss';
+
 class MainMenu extends React.Component {
     constructor(props) {
         super(props);

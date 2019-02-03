@@ -1,6 +1,8 @@
 import React from 'react';
-import GameUI from './GameUI.jsx';
-import GameScene from './GameScene.jsx';
+import GameUI from './components/UI.jsx';
+import GameScene from './components/Scene.jsx';
+
+import './style.scss';
 
 class Game extends React.Component {
     constructor(props) {

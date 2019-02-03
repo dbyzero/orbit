@@ -7,7 +7,7 @@ html, body {
     width: 100vw;
 }
 
-#app-loader {
+#root #app-loader {
     color: white;
     position:fixed;
     z-index:1337;
@@ -23,7 +23,7 @@ html, body {
     background-repeat: no-repeat;
 }
 
-#app-loader .preload-title {
+#root #app-loader .preload-title {
     font-size:6rem;
     text-align:center;
     font-family: 'raidercrusadertitle';

@@ -22,3 +22,20 @@
         margin:auto;
     }
 }
+
+#menu-debug {
+    position: absolute;
+    bottom:0;
+    right:0;
+    background-color:#777;
+    padding:5px;
+}
+
+.debugProceduralGenerationInput {
+    margin-top:8px;
+}
+.debugProceduralGenerationValue {
+    width:50px;
+    float:right;
+    margin-top:7px;
+}
