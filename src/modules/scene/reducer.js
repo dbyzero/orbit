@@ -1,17 +1,16 @@
-const loaderReducer = (state = {
-    showOverlay: false,
-    isActive: false,
-    message: ''
+const gameSceneReducer = (state = {
+    changeCliffOver: null,
+    sceneId: null
 }, action) => {
     let newState = Object.assign({}, state);
     switch (action.type) {
-        case 'HIDE_OVERLAY':
+        case 'LOAD_SCENE':
             return Object.assign({}, newState, {
-                showOverlay: false
+                sceneId: action.sceneId
             });
-        case 'SHOW_OVERLAY':
+        case 'CHANGE_CLIFF_OVER':
             return Object.assign({}, newState, {
-                showOverlay: true
+                changeCliffOver: action.value
             });
         default:
             break;
@@ -19,4 +18,4 @@ const loaderReducer = (state = {
     return newState;
 };
 
-export default loaderReducer;
+export default gameSceneReducer;

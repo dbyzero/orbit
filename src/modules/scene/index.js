@@ -1,35 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { moveCamera, zoomCamera, cameraResize } from '../actions';
-import { updateTotalDisplayShown } from '../actions';
+import { moveCamera, zoomCamera, cameraResize } from './actions';
+import UI from '../ui-debug';
 const PIXI = require('pixi.js');
+
+import './style.scss';
 
 class GameScene extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            app: new PIXI.Application({
-                backgroundColor: 0x333333,
-                resolution: 1,
-                antialias: false,
-                forceFXAA: false,
-                transparent: false
-            }),
-            container: new PIXI.particles.ParticleContainer(300*300, {
-                scale: false,
-                position: false,
-                rotation: false,
-                uvs: true,
-                alpha: false
-            }),
             lastFPSUpdate: 0,
             FPS: null,
             avgFPS: [],
-            sprites: [],
-            resources: [],
             spriteUnderMouse: null,
-            updateCount: 0,
             lastCamera: Object.assign({}, props.camera)
         };
         // tricks to have callback function bind to "this" when function is added as a listener
@@ -38,6 +23,22 @@ class GameScene extends React.Component {
         this.onSceneNotClickedAnymore = this.onSceneNotClickedAnymore.bind(this);
         this.onZoom = this.onZoom.bind(this);
         this.onMouseMove= this.onMouseMove.bind(this);
+
+        this.container = new PIXI.particles.ParticleContainer(300*300, {
+            scale: false,
+            position: false,
+            rotation: false,
+            uvs: true,
+            alpha: false
+        });
+
+        this.app = new PIXI.Application({
+            backgroundColor: 0x333333,
+            resolution: 1,
+            antialias: false,
+            forceFXAA: false,
+            transparent: false
+        });
     }
 
     /**
@@ -45,7 +46,7 @@ class GameScene extends React.Component {
      */
 
     componentDidMount() {
-        // call a resize to scene initial game scene size
+        // initial resize
         this.handleWindowResize();
 
         window.addEventListener('resize', this.handleWindowResize, false);
@@ -54,11 +55,11 @@ class GameScene extends React.Component {
         }
 
         // add some custom settings
-        this.state.app.renderer.autoResize = true;
-        this.state.container.autoResize = true;
+        this.app.renderer.autoResize = true;
+        this.container.autoResize = true;
 
         // append game scene in dom
-        this.gameScene.appendChild(this.state.app.view);
+        this.gameScene.appendChild(this.app.view);
 
         this.init();
         this.loadResources().then((resources) => {
@@ -78,34 +79,32 @@ class GameScene extends React.Component {
             if (oldCamera.x !== this.props.camera.x ||
                 oldCamera.y !== this.props.camera.y ||
                 oldCamera.zoom !== props.camera.zoom) {
-                // we check before drawing to hide out of screen tiles
-                this.move();
-                // and we check in update (after render) to show reveal tiles
-                this.state.app.ticker.addOnce(this.move.bind(this));
+                this.app.ticker.addOnce(this.move.bind(this));
             }
         });
     }
 
     render() {
-        return (
+        return <div>
+            <UI/>
             <div id="game-scene" ref={(el) => {
                 this.gameScene = el;
             }}/>
-        );
+        </div>;
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize, false);
-        this.state.app.view.removeEventListener('pointerdown', this.onSceneClicked, false);
-        this.state.app.view.removeEventListener('pointerup', this.onSceneNotClickedAnymore, false);
-        this.state.app.view.removeEventListener('pointercancel', this.onSceneNotClickedAnymore, false);
-        this.state.app.view.removeEventListener('pointerout', this.onSceneNotClickedAnymore, false);
-        this.state.app.view.removeEventListener('mousewheel', this.onZoom, false);
-        this.state.app.view.removeEventListener('mousemove', this.onMouseMove, false);
+        this.app.view.removeEventListener('pointerdown', this.onSceneClicked, false);
+        this.app.view.removeEventListener('pointerup', this.onSceneNotClickedAnymore, false);
+        this.app.view.removeEventListener('pointercancel', this.onSceneNotClickedAnymore, false);
+        this.app.view.removeEventListener('pointerout', this.onSceneNotClickedAnymore, false);
+        this.app.view.removeEventListener('mousewheel', this.onZoom, false);
+        this.app.view.removeEventListener('mousemove', this.onMouseMove, false);
 
         // destrop PIXI application
-        this.state.app.stop();
-        this.state.app.destroy();
+        this.app.stop();
+        this.app.destroy();
 
         // PixiJS is a state machine, so we reset loader..
         PIXI.loader.destroy();
@@ -120,24 +119,24 @@ class GameScene extends React.Component {
      */
     init() {
         PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-        this.state.app.ticker.add(this.update.bind(this));
-        this.state.app.view.addEventListener('pointermove', (e) => {
+        this.app.ticker.add(this.update.bind(this));
+        this.app.view.addEventListener('pointermove', (e) => {
             if (this.state.isBtnPushed) {
-                this.moveCamera(e.movementX, e.movementY);
+                this.props.dispatch(moveCamera(e.movementX, e.movementY));
             }
         });
-        this.state.app.view.addEventListener('pointerdown', this.onSceneClicked, false);
-        this.state.app.view.addEventListener('pointerup', this.onSceneNotClickedAnymore, false);
-        this.state.app.view.addEventListener('pointercancel', this.onSceneNotClickedAnymore, false);
-        this.state.app.view.addEventListener('pointerout', this.onSceneNotClickedAnymore, false);
-        this.state.app.view.addEventListener('mousewheel', this.onZoom, false);
-        this.state.app.view.addEventListener('mousemove', this.onMouseMove, false);
-        this.state.app.stage.addChild(this.state.container);
+        this.app.view.addEventListener('pointerdown', this.onSceneClicked, false);
+        this.app.view.addEventListener('pointerup', this.onSceneNotClickedAnymore, false);
+        this.app.view.addEventListener('pointercancel', this.onSceneNotClickedAnymore, false);
+        this.app.view.addEventListener('pointerout', this.onSceneNotClickedAnymore, false);
+        this.app.view.addEventListener('mousewheel', this.onZoom, false);
+        this.app.view.addEventListener('mousemove', this.onMouseMove, false);
+        this.app.stage.addChild(this.container);
     }
 
     start() {
         // create FPS info
-        const FPS = new PIXI.Text(this.state.app.ticker.FPS, {
+        const FPS = new PIXI.Text(this.app.ticker.FPS, {
             fontFamily: 'Arial',
             fontSize: 24,
             fill: 0xff1010,
@@ -145,7 +144,7 @@ class GameScene extends React.Component {
         });
         FPS.x = 10;
         FPS.y = 30;
-        this.state.app.stage.addChild(FPS);
+        this.app.stage.addChild(FPS);
         this.setState({
             FPS: FPS
         }, () => {
@@ -203,7 +202,7 @@ class GameScene extends React.Component {
         spriteAnimated.height = 74;
         spriteAnimated.animationSpeed = 0.3;
         spriteAnimated.play();
-        this.state.container.addChild(spriteAnimated);
+        this.container.addChild(spriteAnimated);
 
         // test frames
         const frames2 = [];
@@ -237,7 +236,7 @@ class GameScene extends React.Component {
         spriteAnimated2.height = 74;
         spriteAnimated2.animationSpeed = 0.2;
         spriteAnimated2.play();
-        this.state.container.addChild(spriteAnimated2);
+        this.container.addChild(spriteAnimated2);
 
         // test frames
         const frames3 = [];
@@ -255,7 +254,7 @@ class GameScene extends React.Component {
         spriteAnimated3.height = 74;
         spriteAnimated3.animationSpeed = 0.15;
         spriteAnimated3.play();
-        this.state.container.addChild(spriteAnimated3);
+        this.container.addChild(spriteAnimated3);
 
         // test frames
         const frames4 = [];
@@ -282,7 +281,7 @@ class GameScene extends React.Component {
         spriteAnimated4.height = 74;
         spriteAnimated4.animationSpeed = 0.2;
         spriteAnimated4.play();
-        this.state.container.addChild(spriteAnimated4);
+        this.container.addChild(spriteAnimated4);
 
         // test frames
         const frames5 = [];
@@ -299,7 +298,7 @@ class GameScene extends React.Component {
         spriteAnimated5.height = 74;
         spriteAnimated5.animationSpeed = 0.15;
         spriteAnimated5.play();
-        this.state.container.addChild(spriteAnimated5);
+        this.container.addChild(spriteAnimated5);
 
         // test frames
         const frames6 = [];
@@ -326,7 +325,7 @@ class GameScene extends React.Component {
         spriteAnimated6.height = 74;
         spriteAnimated6.animationSpeed = 0.2;
         spriteAnimated6.play();
-        this.state.container.addChild(spriteAnimated6);
+        this.container.addChild(spriteAnimated6);
 
         // test frames
         const frames7 = [];
@@ -340,7 +339,7 @@ class GameScene extends React.Component {
         spriteAnimated7.height = 74;
         spriteAnimated7.animationSpeed = 0.2;
         spriteAnimated7.play();
-        this.state.container.addChild(spriteAnimated7);
+        this.container.addChild(spriteAnimated7);
 
         // test frames
         const frames8 = [];
@@ -366,7 +365,7 @@ class GameScene extends React.Component {
         spriteAnimated8.height = 74;
         spriteAnimated8.animationSpeed = 0.2;
         spriteAnimated8.play();
-        this.state.container.addChild(spriteAnimated8);
+        this.container.addChild(spriteAnimated8);
 
         // test frames
         const frames9 = [];
@@ -387,7 +386,7 @@ class GameScene extends React.Component {
         spriteAnimated9.height = 74;
         spriteAnimated9.animationSpeed = 0.2;
         spriteAnimated9.play();
-        this.state.container.addChild(spriteAnimated9);
+        this.container.addChild(spriteAnimated9);
 
         // test frames
         const frames10 = [];
@@ -400,31 +399,31 @@ class GameScene extends React.Component {
         spriteAnimated10.height = 74;
         spriteAnimated10.animationSpeed = 0.2;
         spriteAnimated10.play();
-        this.state.container.addChild(spriteAnimated10);
+        this.container.addChild(spriteAnimated10);
 
         // set container status
-        this.state.container.initialWidth = this.state.container.width;
-        this.state.container.initialHeight = this.state.container.height;
-        this.state.container.x = this.props.camera.x * this.props.camera.zoom;
-        this.state.container.y = this.props.camera.y * this.props.camera.zoom;
-        this.state.container.width = this.state.container.initialWidth * this.props.camera.zoom;
-        this.state.container.height = this.state.container.initialHeight * this.props.camera.zoom;
+        this.container.initialWidth = this.container.width;
+        this.container.initialHeight = this.container.height;
+        this.container.x = this.props.camera.x * this.props.camera.zoom;
+        this.container.y = this.props.camera.y * this.props.camera.zoom;
+        this.container.width = this.container.initialWidth * this.props.camera.zoom;
+        this.container.height = this.container.initialHeight * this.props.camera.zoom;
     }
 
     update() {
         const newState = Object.assign({}, this.state);
 
         // FPS
-        if (this.state.FPS && this.state.lastFPSUpdate + 200 < newState.app.ticker.lastTime) {
+        if (this.state.FPS && this.state.lastFPSUpdate + 200 < this.app.ticker.lastTime) {
             if (newState.avgFPS.length === 10) {
                 newState.avgFPS.shift();
             }
-            newState.avgFPS.push(newState.app.ticker.FPS);
+            newState.avgFPS.push(this.app.ticker.FPS);
 
             const FPS = newState.avgFPS.reduce((pv, cv) => pv+cv, 0)/newState.avgFPS.length;
             newState.FPS.text = Math.round(FPS) + ' FPS';
 
-            newState.lastFPSUpdate = newState.app.ticker.lastTime;
+            newState.lastFPSUpdate = this.app.ticker.lastTime;
         }
 
         this.setState(newState);
@@ -434,7 +433,6 @@ class GameScene extends React.Component {
     /**
      * Custom functions
      */
-
     loadResources() {
         return new Promise(resolv => {
             PIXI.loader
@@ -446,7 +444,7 @@ class GameScene extends React.Component {
             return new Promise(resolv => {
                 new PIXI.Spritesheet(
                     resources.spritesheet.texture.baseTexture,
-                    require('../../../assets/sprites/spritesheet.json'),
+                    require('../../assets/sprites/spritesheet.json'),
                     'spritesheet'
                 ).parse(() => {
                     resolv(resources);
@@ -458,43 +456,14 @@ class GameScene extends React.Component {
     }
 
     move() {
-        this.state.container.x = this.props.camera.zoom * this.props.camera.x;
-        this.state.container.y = this.props.camera.zoom * this.props.camera.y;
-        this.state.container.width = this.props.camera.zoom * this.state.container.initialWidth;
-        this.state.container.height = this.props.camera.zoom * this.state.container.initialHeight;
-
-        let spriteTotalShown = 0;
-        for (let i = 0; i < this.state.sprites.length; i=i+1) {
-            const sprite = this.state.sprites[i];
-            const onScreenPositionX =
-                this.state.container.x + (sprite.positionX/2 - sprite.positionY/2) * 64 * this.props.camera.zoom;
-            const onScreenPositionY =
-                this.state.container.y + (sprite.positionX/4 + sprite.positionY/4) * 64 * this.props.camera.zoom;
-            const onScreenWidth = 64 * this.props.camera.zoom;
-            const onScreenHeight = 64 * this.props.camera.zoom;
-            // culling
-            if (onScreenPositionX + onScreenWidth < 0 ||
-                onScreenPositionY + onScreenHeight < 0 ||
-                onScreenPositionX > this.props.camera.width ||
-                onScreenPositionY > this.props.camera.height
-            ) {
-                sprite.renderable = false;
-                sprite.visible = false;
-            } else {
-                sprite.renderable = true;
-                sprite.visible = true;
-                spriteTotalShown = spriteTotalShown + 1;
-            }
-        }
-        this.props.dispatch(updateTotalDisplayShown(spriteTotalShown));
-    }
-
-    moveCamera(dx, dy) {
-        this.props.dispatch(moveCamera(dx, dy));
+        this.container.x = this.props.camera.zoom * this.props.camera.x;
+        this.container.y = this.props.camera.zoom * this.props.camera.y;
+        this.container.width = this.props.camera.zoom * this.container.initialWidth;
+        this.container.height = this.props.camera.zoom * this.container.initialHeight;
     }
 
     /**
-     * Callback functions
+     * handler functions
      */
 
     onMouseMove(/* e */) {
@@ -503,9 +472,9 @@ class GameScene extends React.Component {
     handleWindowResize() {
         const width = window.innerWidth;
         const height = window.innerHeight;
-        this.state.app.view.style.width = width+'px';
-        this.state.app.view.style.height = height+'px';
-        this.state.app.renderer.resize(width, height);
+        this.app.view.style.width = width+'px';
+        this.app.view.style.height = height+'px';
+        this.app.renderer.resize(width, height);
         this.props.dispatch(cameraResize(width, height));
     }
 
@@ -529,6 +498,6 @@ class GameScene extends React.Component {
 export default connect((store) => {
     return {
         camera: store.camera,
-        gameScene: store.gameScene
+        scene: store.scene
     };
 })(GameScene);

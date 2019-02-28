@@ -3,28 +3,19 @@
     "modules": [
         "camera",
         "core",
-        "game",
+        "scene",
+        "ui-debug",
         "layout",
-        "loader",
         "mainmenu"
     ],
     "routes": {
-        "defaultRoute": "/game",
+        "defaultRoute": "/scene",
         "modules": {
-            "game": "/game"
+            "scene": "/scene"
         }
     },
     "localeFiles": [
-        "alerts",
         "common",
-        "notifications",
-        "user",
-        "group",
-        "graph",
-        "devices",
-        "descriptions",
-        "dashboard",
-        "errors",
-        "search"
+        "menu"
     ]
 }

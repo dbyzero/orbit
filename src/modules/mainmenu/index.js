@@ -31,8 +31,10 @@ class MainMenu extends React.Component {
                 <ul>
                     <li>Orbit Engine</li>
                     <li>&nbsp;</li>
-                    <li><Link to="/game">{t('menu:Game')}</Link></li>
-                    <li><a href="#" onClick={this.onClickQuit.bind(this)}>{t('menu:quit')}</a></li>
+                    <li><a href="#" onClick={() => {debugger;this.props.history.push('/scene')}}>{t('menu:scene')} 1</a></li>
+                    <li><Link to="/scene">{t('menu:scene')} 2</Link></li>
+                    <li><Link to="/scene">{t('menu:scene')} 3</Link></li>
+                    <li><a href="#" onClick={this.onClickQuit.bind(this)}>{t('menu:Quit')}</a></li>
                 </ul>
             </div>
         );

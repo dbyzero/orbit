@@ -12,8 +12,6 @@ class GameUI extends React.Component {
         return (
             <div id="game-ui">
                 <div id="menu-debug">
-                    Display Count: {this.props.game.totalDisplayShown}<br/>
-                    Cliff: {this.props.game.changeCliffOver}<br/><br/>
                     Camera:<br/>
                     x: {this.props.camera.x}<br/>
                     y: {this.props.camera.y}<br/>
@@ -32,6 +30,6 @@ class GameUI extends React.Component {
 export default connect((store) => {
     return {
         camera: store.camera,
-        game: store.game
+        scene: store.scene
     };
 })(GameUI);
