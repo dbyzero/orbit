@@ -1,4 +1,8 @@
 module.exports = {
+    "globals": {
+        "VERSION": false,
+        "IS_PRODUCTION": false,
+    },
     "env": {
         "browser": true,
         "commonjs": true,

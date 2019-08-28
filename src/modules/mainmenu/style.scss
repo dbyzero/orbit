@@ -1,0 +1,35 @@
+.menu {
+    z-index:200;
+    min-width: 100vw;
+    min-height: 100vh;
+    font-variant:small-caps;
+    display:flex;
+    font-family: 'raidercrusadertitle';
+    font-size: 4em;
+    text-align: center;
+    color: #eee;
+    text-shadow: 6px 6px 20px #555;
+    background-image: url(../../assets/images/bg.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    a {
+        text-shadow: 6px 6px 20px #555;
+        color: #eee;
+        text-decoration: none;
+
+        &:hover {
+            color: #777;
+        }
+    }
+
+    ul {
+        padding: 0;
+        margin: auto;
+        border: 0;
+        li {
+            list-style: none;
+        }
+    }
+}
