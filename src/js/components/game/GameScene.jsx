@@ -15,7 +15,7 @@ class GameScene extends React.Component {
                 forceFXAA: false,
                 transparent: false
             }),
-            container: new PIXI.particles.ParticleContainer(300*300, {
+            container: new PIXI.ParticleContainer(300*300, {
                 scale: false,
                 position: false,
                 rotation: false,
@@ -45,6 +45,7 @@ class GameScene extends React.Component {
 
     componentDidMount() {
         // call a resize to scene initial game scene size
+        PIXI.loader = new PIXI.Loader();
         this.handleWindowResize();
 
         window.addEventListener('resize', this.handleWindowResize, false);
@@ -108,7 +109,7 @@ class GameScene extends React.Component {
 
         // PixiJS is a state machine, so we reset loader..
         PIXI.loader.destroy();
-        PIXI.loader = new PIXI.loaders.Loader();
+        PIXI.loader = new PIXI.Loader();
         // ... and reset scale mode
         PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.LINEAR;
     }
@@ -164,7 +165,7 @@ class GameScene extends React.Component {
         frames.push(PIXI.utils.TextureCache['marines_8.png']);
         frames.push(PIXI.utils.TextureCache['marines_9.png']);
         frames.push(PIXI.utils.TextureCache['marines_10.png']);
-        const spriteAnimated = new PIXI.extras.AnimatedSprite(frames);
+        const spriteAnimated = new PIXI.AnimatedSprite(frames);
         spriteAnimated.x = 200;
         spriteAnimated.y = 200;
         spriteAnimated.width = 48;
@@ -183,7 +184,7 @@ class GameScene extends React.Component {
         frames2.push(PIXI.utils.TextureCache['spaceship_5.png']);
         frames2.push(PIXI.utils.TextureCache['spaceship_6.png']);
         frames2.push(PIXI.utils.TextureCache['spaceship_7.png']);
-        const spriteAnimated2 = new PIXI.extras.AnimatedSprite(frames2);
+        const spriteAnimated2 = new PIXI.AnimatedSprite(frames2);
         spriteAnimated2.x = 200;
         spriteAnimated2.y = 100;
         spriteAnimated.width = 106;
@@ -204,7 +205,7 @@ class GameScene extends React.Component {
     update() {
         const newState = Object.assign({}, this.state);
 
-        // FPS
+        // Update FPS info
         if (this.state.FPS && this.state.lastFPSUpdate + 200 < newState.app.ticker.lastTime) {
             if (newState.avgFPS.length === 10) {
                 newState.avgFPS.shift();

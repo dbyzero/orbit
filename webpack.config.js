@@ -37,7 +37,7 @@ module.exports = function (env) {
             filename: 'app.js',
             sourceMapFilename: 'app.js.map'
         },
-        devtool: isProduction ? 'source-map' : 'eval',
+        devtool: isProduction ? 'source-map' : 'eval-source-map', //  'cheap-module-source-map'
         devServer: {
             host: '0.0.0.0',
             contentBase: 'build/',
