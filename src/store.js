@@ -1,38 +1,32 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
+import {
+    createStore, applyMiddleware, combineReducers
+} from 'redux';
+import { all } from 'redux-saga/effects';
 import { createLogger } from 'redux-logger';
-import promise from 'redux-promise-middleware';
-import log from 'loglevel';
+import createSagaMiddleware from 'redux-saga';
 
-import config from './config';
-
-const reducers = {};
-config.modules.forEach(module => {
-    try {
-        reducers[module] = require('./modules/' + module + '/reducer').default;
-    } catch (e) {
-        console.error('Warrning: cannot load reducer for module "' + module + '"');
-    }
+// Bootstrap reducers
+const reducers_required = {};
+['test', 'menuLayer', 'uiLayer'].forEach(reducer => {
+    reducers_required[reducer] = require(`./modules/${ reducer }/reducer`).default;
 });
+const reducers = combineReducers(reducers_required);
 
-// error middleware
-const error = (/* store */) => (next) => (action) => {
-    try {
-        next(action);
-    } catch (e) {
-        log.error('Error catch in error middleware:\n', e);
-    }
-};
+// Bootstrap saga and middleware
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = IS_PRODUCTION ? applyMiddleware(sagaMiddleware)
+    : applyMiddleware(sagaMiddleware, createLogger({ duration: true }));
 
-let middlewares;
-if (IS_PRODUCTION) {
-    middlewares = applyMiddleware(promise(), error, {});
-} else {
-    middlewares = applyMiddleware(promise(), error, createLogger({
-        duration: true
-    }));
+// Bootstrap store
+const state = {};
+const store = createStore(reducers, state, middlewares);
+
+// Start Saga
+function *RootSaga() {
+    yield all(['test'].map(saga => require(`./modules/${ saga }/saga`).default()));
 }
-
-const store = createStore(combineReducers(reducers), {}, middlewares);
-console.log(store);
+sagaMiddleware.run(RootSaga);
 
 export default store;

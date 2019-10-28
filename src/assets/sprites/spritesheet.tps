@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>pixijs</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>spritesheet.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>spritesheet.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -199,82 +199,253 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-1.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack-3-end-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack-3-end-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack-3-end-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-rdy-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-jmp-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-jmp-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-06.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-fall-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-fall-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-hurt-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-hurt-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-hurt-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-items-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-items-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-items-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-slide-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-slide-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-stand-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-stand-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-stand-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-wall-slide-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-wall-slide-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-06.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-07.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-08.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-06.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-06.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-07.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-06.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-06.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-07.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-08.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-09.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-10.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-11.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-12.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-06.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-05.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-00.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-01.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-02.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-03.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-04.png</key>
+            <key type="filename">../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-05.png</key>
+            <key type="filename">../../../sprites/adventurer/run3/adventurer-run3-00.png</key>
+            <key type="filename">../../../sprites/adventurer/run3/adventurer-run3-01.png</key>
+            <key type="filename">../../../sprites/adventurer/run3/adventurer-run3-02.png</key>
+            <key type="filename">../../../sprites/adventurer/run3/adventurer-run3-03.png</key>
+            <key type="filename">../../../sprites/adventurer/run3/adventurer-run3-04.png</key>
+            <key type="filename">../../../sprites/adventurer/run3/adventurer-run3-05.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>4,4,9,8</rect>
+                <rect>13,9,25,19</rect>
                 <key>scale9Paddings</key>
-                <rect>4,4,9,8</rect>
+                <rect>13,9,25,19</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-2.png</key>
+            <key type="filename">../../../sprites/adventurer/run3/adventurer-run3-sword-Sheet.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>3,4,5,7</rect>
+                <rect>75,9,150,19</rect>
                 <key>scale9Paddings</key>
-                <rect>3,4,5,7</rect>
+                <rect>75,9,150,19</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-3.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-00.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-01.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-02.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-03.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-04.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>11,7,23,15</rect>
+                <rect>4,8,8,16</rect>
                 <key>scale9Paddings</key>
-                <rect>11,7,23,15</rect>
+                <rect>4,8,8,16</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-4.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>8,8,15,15</rect>
-                <key>scale9Paddings</key>
-                <rect>8,8,15,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-5.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>9,9,18,17</rect>
-                <key>scale9Paddings</key>
-                <rect>9,9,18,17</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_0.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_1.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_10.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_2.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_3.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_4.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_5.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_6.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_7.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_8.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/space-marine-files/PNG/marines_9.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-with-bg-00.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-with-bg-01.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-with-bg-02.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-with-bg-03.png</key>
+            <key type="filename">../../../sprites/light/torch-anim-with-bg-04.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -287,53 +458,240 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_0.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_1.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_2.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_3.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_4.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_5.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_6.png</key>
-            <key type="filename">../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_7.png</key>
+            <key type="filename">../../../sprites/water-deep/water-anim-00.png</key>
+            <key type="filename">../../../sprites/water-deep/water-anim-01.png</key>
+            <key type="filename">../../../sprites/water-deep/water-anim-02.png</key>
+            <key type="filename">../../../sprites/water-deep/water-anim-03.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>27,19,53,39</rect>
+                <rect>8,8,16,16</rect>
                 <key>scale9Paddings</key>
-                <rect>27,19,53,39</rect>
+                <rect>8,8,16,16</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-1.png</filename>
-            <filename>../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-2.png</filename>
-            <filename>../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-3.png</filename>
-            <filename>../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-4.png</filename>
-            <filename>../../../../../assets/sprites/SF/asteroid-fighter-files/PNG/asteroids/asteroid-5.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_0.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_1.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_2.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_3.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_4.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_5.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_6.png</filename>
-            <filename>../../../../../assets/sprites/SF/spaceship-unit-files/PNG/spaceship_7.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_0.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_1.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_2.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_3.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_4.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_5.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_6.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_7.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_8.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_9.png</filename>
-            <filename>../../../../../assets/sprites/SF/space-marine-files/PNG/marines_10.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack-3-end-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack-3-end-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack-3-end-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack1-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack2-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-loop-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-air-attack3-rdy-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack1-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack2-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-attack3-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-cast-loop-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-clmb-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-grb-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-jmp-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crnr-jmp-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-crouch-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-die-06.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-fall-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-fall-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-hurt-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-hurt-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-hurt-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-2-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-idle-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-items-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-items-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-items-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-jump-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-ladder-climb-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-run-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-slide-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-slide-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-smrslt-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-stand-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-stand-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-stand-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-drw-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-swrd-shte-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-wall-slide-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-1.5/Individual Sprites/adventurer-wall-slide-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-06.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-07.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-08.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Bow/Individual Sprites/adventurer-bow-jump-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-crouch-walk-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-drop-kick-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-get-up-06.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-06.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-kick-07.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-knock-dwn-06.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-06.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-07.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-08.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-09.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-10.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-11.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-punch-12.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run-punch-06.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-run2-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-walk-05.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-00.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-01.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-02.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-03.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-04.png</filename>
+            <filename>../../../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-05.png</filename>
+            <filename>../../../sprites/adventurer/run3/adventurer-run3-00.png</filename>
+            <filename>../../../sprites/adventurer/run3/adventurer-run3-01.png</filename>
+            <filename>../../../sprites/adventurer/run3/adventurer-run3-02.png</filename>
+            <filename>../../../sprites/adventurer/run3/adventurer-run3-03.png</filename>
+            <filename>../../../sprites/adventurer/run3/adventurer-run3-04.png</filename>
+            <filename>../../../sprites/adventurer/run3/adventurer-run3-05.png</filename>
+            <filename>../../../sprites/adventurer/run3/adventurer-run3-sword-Sheet.png</filename>
+            <filename>../../../sprites/light/torch-anim-00.png</filename>
+            <filename>../../../sprites/light/torch-anim-01.png</filename>
+            <filename>../../../sprites/light/torch-anim-02.png</filename>
+            <filename>../../../sprites/light/torch-anim-03.png</filename>
+            <filename>../../../sprites/light/torch-anim-04.png</filename>
+            <filename>../../../sprites/light/torch-anim-with-bg-00.png</filename>
+            <filename>../../../sprites/light/torch-anim-with-bg-01.png</filename>
+            <filename>../../../sprites/light/torch-anim-with-bg-02.png</filename>
+            <filename>../../../sprites/light/torch-anim-with-bg-03.png</filename>
+            <filename>../../../sprites/light/torch-anim-with-bg-04.png</filename>
+            <filename>../../../sprites/water-deep/water-anim-00.png</filename>
+            <filename>../../../sprites/water-deep/water-anim-01.png</filename>
+            <filename>../../../sprites/water-deep/water-anim-02.png</filename>
+            <filename>../../../sprites/water-deep/water-anim-03.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

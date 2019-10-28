@@ -1,9 +1,9 @@
 const webpack = require('webpack');
-const WriteFilePlugin = require('write-file-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const WebpackShellPlugin = require('webpack-shell-plugin');
-const os = require('os');
+const log = require('log-level');
 const packageConf = require('./package');
 
 module.exports = function (env) {
@@ -15,68 +15,90 @@ module.exports = function (env) {
         case isProduction:
             configuration = {
                 VERSION: JSON.stringify(packageConf.version),
-                IS_PRODUCTION: true
+                IS_PRODUCTION: true,
+                IS_DEBUG: false
             };
             break;
         case isDevelopment:
             configuration = {
                 VERSION: JSON.stringify(packageConf.version),
-                IS_PRODUCTION: false
+                IS_PRODUCTION: false,
+                IS_DEBUG: true
             };
             break;
         default:
             throw new Error('Unknow environment');
     }
 
-    console.log('Using configuration:');
-    console.log(configuration);
+    log.info('Using configuration:');
+    log.info(configuration);
 
     return {
-        entry: './src/modules/core/',
+        entry: './src/index.js',
         output: {
-            path: __dirname + '/build/',
-            filename: 'app.js',
-            sourceMapFilename: 'app.js.map'
+            publicPath: '/',
+            path: `${__dirname}/build/`,
+            filename: 'bundle.js',
+            sourceMapFilename: 'bundle.js.map'
         },
-        devtool: isProduction ? 'source-map' : 'eval-source-map',
+        devtool: isProduction ? 'source-map' : 'eval-source-map', //  'cheap-module-source-map'
         devServer: {
-            host: '0.0.0.0',
+            host: 'localhost',
             contentBase: 'build/',
             // for browserHistory mode
             historyApiFallback: true
         },
+        mode: isDevelopment ? 'development' : 'production',
+        resolve: {
+            extensions: ['.js', '.jsx']
+        },
         module: {
-            loaders: [
+            rules: [
                 {
-                    test: /.jsx?$/,
-                    loader: 'babel-loader',
-                    exclude: /node_modules/,
-                    query: {
-                        presets: ['react', 'es2015']
-                    }
-                },
-                {
-                    test: /\.json$/,
-                    loader: 'json-loader'
-                },
-                {
-                    test: /\.s?css$/,
-                    loaders: [{
-                        loader: 'style-loader'
-                    }, {
-                        loader: 'css-loader'
-                    }, {
-                        loader: 'sass-loader',
-                        options: {
-                            includePaths: [
-                                'node_modules/foundation-sites/scss/'
-                            ]
+                    test: /\.html$/,
+                    use: [
+                        {
+                            loader: 'html-loader',
+                            options: { minimize: true }
                         }
-                    }]
+                    ]
+                },
+                {
+                    test: /\.svg$/,
+                    use: [
+                        {
+                            loader: 'babel-loader'
+                        },
+                        {
+                            loader: 'react-svg-loader',
+                            options: {
+                                jsx: true // true outputs JSX tags
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.(js|jsx)$/,
+                    loader: 'babel-loader',
+                    exclude: /node_modules/
+                },
+                {
+                    test: /\.(sass|scss|css)$/,
+                    use: [
+                        {
+                            loader: 'style-loader'
+                        },
+                        {
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'sass-loader'
+                        }
+                    ]
                 },
                 {
                     test: /\.(png|jpe?g)$/,
-                    loader: 'url-loader?limit=20000'
+                    loader: 'url-loader?limit=100000'
                 },
                 {
                     test: /\.woff$/,
@@ -96,14 +118,35 @@ module.exports = function (env) {
                 }
             ]
         },
+        optimization: {
+            runtimeChunk: false,
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all'
+                    }
+                }
+            },
+            minimize: isProduction,
+            removeAvailableModules: true,
+            minimizer: [
+                new UglifyJsPlugin({
+                    cache: true,
+                    parallel: true,
+                    sourceMap: true
+                })
+            ]
+        },
         plugins: [
             new webpack.DefinePlugin(configuration),
-            new WriteFilePlugin(),
+            new HtmlWebPackPlugin({
+                hash: true,
+                template: './src/index.html',
+                filename: './index.html'
+            }),
             new CopyWebpackPlugin([
-                {
-                    from: 'src/index.html',
-                    to: 'index.html'
-                },
                 {
                     from: 'src/index.css',
                     to: 'index.css'
@@ -129,21 +172,7 @@ module.exports = function (env) {
                     to: 'favicon.png'
                 }
             ]),
-            new HtmlWebPackPlugin({
-                hash: true,
-                template: './src/index.html',
-                filename: './index.html'
-            }),
-            new webpack.optimize.UglifyJsPlugin({
-                minimize: isProduction,
-                compress: isProduction,
-                mangle: isProduction,
-                beautify: !isProduction,
-                sourceMap: true
-            }),
-            new WebpackShellPlugin({
-                onBuildEnd: 'node scripts/build/end.js'
-            })
+            new CompressionPlugin()
         ]
     };
 };
