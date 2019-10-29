@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import loadTextures from './loadTextures';
 import {
-    loadScene as loadSceneDemo,
-    updateScene as updateSceneDemo,
-    loadCollisionLayer as loadCollisionLayerDemo
-} from '../../levels/demo';
+    World, Box, Body
+} from 'p2';
+
+import loadTextures from './loadTextures';
 
 const PIXI = require('pixi.js');
 
-const GameEngine = () => {
-    let debugButtonPushed = null;
-    const collisionLayer = new PIXI.Graphics();
-    collisionLayer.visible = false;
-    collisionLayer.zIndex = 1000;
+const FPS_WANTED = 60;
 
-    const [status, setStatus] = useState(null);
+const GameEngine = props => {
+    // variable for gameEngine status
+    let debugButtonPushed = false;
+    let leftButtonPushed = false;
+    let rightButtonPushed = false;
+    const [status, setStatus] = useState('loading');
+
+    const testBody = new Body({
+        mass: 5,
+        position: [20, 100],
+        velocity: [0, 0]
+    });
+
+    // Graphic objects
     const [app] = useState(new PIXI.Application({
         backgroundColor: 0x333333,
         resolution: 1,
@@ -24,7 +32,17 @@ const GameEngine = () => {
         forceFXAA: false,
         transparent: false
     }));
+    const collisionLayer = new PIXI.Graphics();
+    collisionLayer.visible = false;
+    collisionLayer.zIndex = 1000;
 
+    // Physical objects
+    const physicWorld = new World({
+        gravity: [0, 9.82],
+
+    });
+
+    // Handlers
     const handleWindowResize = () => {
         const width = window.innerWidth;
         const height = window.innerHeight;
@@ -34,7 +52,7 @@ const GameEngine = () => {
     };
 
     const handleMouseMove = e => {
-        if (debugButtonPushed === 'pusched') {
+        if (debugButtonPushed) {
             app.stage.x = app.stage.x + e.movementX;
             app.stage.y = app.stage.y + e.movementY;
         }
@@ -52,18 +70,30 @@ const GameEngine = () => {
 
     const handleKeyDown = e => {
         if (e.key === 'Control') {
-            debugButtonPushed = 'pusched';
+            debugButtonPushed = true;
             collisionLayer.visible = true;
+        }
+        if (e.key === 'ArrowLeft') {
+            console.log(testBody.applyForce([-1000, -1000]));
+            leftButtonPushed = true;
+        }
+        if (e.key === 'ArrowRight') {
+            console.log(testBody.applyForce([1000, -1000]));
+            rightButtonPushed = true;
         }
     };
 
     const handleKeyUp = e => {
-        if (e.key === 'Control') {
-            debugButtonPushed = null;
-            collisionLayer.visible = false;
+        if (e.key === 'ArrowLeft') {
+            leftButtonPushed = false;
+        }
+        if (e.key === 'ArrowRight') {
+            rightButtonPushed = false;
         }
     };
 
+
+    // Initialisation script, a promise!
     const init = () => new Promise(resolvInitialisation => {
         PIXI.loader = new PIXI.Loader();
 
@@ -82,31 +112,79 @@ const GameEngine = () => {
 
         // load textures
         loadTextures().then(() => {
-            loadSceneDemo(app.stage);
-            loadCollisionLayerDemo(app.stage, collisionLayer);
-
-            app.stage.width = 2 * app.stage.width;
-            app.stage.height = 2 * app.stage.height;
+            const Level = require(`../../levels/${props.level}`);
+            Level.loadScene(app.stage, physicWorld, collisionLayer);
 
             // add WebGL canvas container to DOM
             document.getElementById('ViewPort').appendChild(app.view);
             resolvInitialisation();
         });
+
+        physicWorld.on('impact', (a, b) => {
+            console.log(a, b);
+        });
+
+        // physicWorld.on('postStep', () => {
+        // })
+
     });
 
     const start = () => {
         setStatus('ready');
-        app.ticker.add(updateSceneDemo);
+
+        /**
+         * ******************************
+         *         START TEST           *
+         ********************************/
+        const testShape = new Box({
+            width: 10,
+            height: 10,
+            boundingRadius: 0
+        });
+        testBody.addShape(testShape);
+        physicWorld.addBody(testBody);
+
+        const testPhysic = PIXI.Sprite.from('level.png');
+        console.log(testBody);
+        testPhysic.x = testBody.position[0];
+        testPhysic.y = testBody.position[1];
+        testPhysic.width = testBody.shapes[0].width;
+        testPhysic.height = testBody.shapes[0].height;
+        app.stage.addChild(testPhysic);
+        /**
+         * ****************************
+         *         END TEST           *
+         ******************************/
+
+        app.stage.width *= 2;
+        app.stage.height *= 2;
+
+        app.ticker.add(dt => {
+            physicWorld.step(1 / FPS_WANTED, dt);
+            /**
+             * ******************************
+             *         START TEST           *
+             ********************************/
+            testPhysic.x = testBody.position[0] - testPhysic.width / 2;
+            testPhysic.y = testBody.position[1] - testPhysic.height / 2;
+            // console.log(`${testPhysic.x} ${testPhysic.y}`);
+            /**
+             * ****************************
+             *         END TEST           *
+             ******************************/
+        });
     };
 
     useEffect(() => {
         // start initialisation if game start
-        setStatus('initializing');
+        setStatus(`initializing ${props.level}`);
         init().then(start);
-    }, []);
+    }, [props.level]);
+
+    console.log(`Status: ${status}`);
 
     return (
-        <div id="ViewPort" />
+        <div id="ViewPort" className={status} />
     );
 };
 

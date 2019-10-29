@@ -11,3 +11,7 @@ Reseau
 WebRTC :
 PEER JS (JS)
 RTC.io (node)
+
+GROUP DE COLLISION : https://github.com/schteppe/p2.js/wiki#filtering-shape-collisions
+
+MATERIAL : https://github.com/schteppe/p2.js/wiki#materials

@@ -13,7 +13,7 @@ const GameLayer = props => {
     return (
         <div className="gameLayer">
             <div>
-                <GameEngine />
+                <GameEngine level="demo" />
             </div>
         </div>
     );

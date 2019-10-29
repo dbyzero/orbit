@@ -474,6 +474,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../../levels/demo/level.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>492,76,984,152</rect>
+                <key>scale9Paddings</key>
+                <rect>492,76,984,152</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -692,6 +705,7 @@
             <filename>../../../sprites/water-deep/water-anim-01.png</filename>
             <filename>../../../sprites/water-deep/water-anim-02.png</filename>
             <filename>../../../sprites/water-deep/water-anim-03.png</filename>
+            <filename>../../levels/demo/level.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

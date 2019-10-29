@@ -1,5 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { compose } from 'redux';
 
 
@@ -22,9 +21,6 @@ const UILayer = props => {
             </div>
             <div>
                 <label>
-                    <FontAwesomeIcon
-                        icon="rocket"
-                    />
                     <button type="button" onClick={props.showMenuLayer}>
                         Show menu
                     </button>
