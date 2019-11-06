@@ -1,4 +1,8 @@
-import { Box, Body, Circle } from 'p2';
+import {
+    Box,
+    Body,
+    Convex
+} from 'p2';
 
 import collisionItems from './collisionItems.json';
 
@@ -6,39 +10,67 @@ const PIXI = require('pixi.js');
 
 const loadCollision = (scene, physicWorld, collisionLayer) => {
     collisionItems.list.forEach(item => {
-        // add object in physical world
-        const body = new Body({
-            position: [item.x + item.width/2, item.y + item.height/2],
-            mass: 0,
-            type: Body.STATIC
-        });
-
-        const shape = new Box({
-            width: item.width,
-            height: item.height
-        });
-
-        body.addShape(shape);
-        physicWorld.addBody(body);
-
         // debug view
+        let body;
+        let shape;
         switch (item.type) {
             case 'rectangle':
-                collisionLayer.beginFill(0xFF0000, 0.50);
-                collisionLayer.drawRect(item.x, item.y, item.width, item.height);
-                collisionLayer.endFill();
-                break;
-            case 'polygone':
-                collisionLayer.beginFill(0xFF0000, 0.50);
-                collisionLayer.moveTo(item.points[0].x, item.points[0].y);
-
-                item.points.slice(1).forEach(point => {
-                    collisionLayer.lineTo(point.x, point.y);
+                body = new Body({
+                    position: [item.x, item.y],
+                    mass: 0,
+                    type: Body.STATIC
                 });
 
+                shape = new Box({
+                    width: item.width,
+                    height: item.height
+                });
+
+                // move shape to start at coord origin
+                body.addShape(shape);
+                physicWorld.addBody(body);
+
+                // draw debug form
+                collisionLayer.beginFill(0xFF0000, 0.50);
+                collisionLayer.drawRect(
+                    item.x - item.width / 2,
+                    item.y - item.height / 2,
+                    item.width,
+                    item.height
+                );
+                collisionLayer.endFill();
+                break;
+
+            case 'polygone':
+                body = new Body({
+                    position: [item.x, item.y],
+                    mass: 0,
+                    type: Body.STATIC
+                });
+
+                shape = new Convex({
+                    vertices: item.vertices
+                });
+
+                body.addShape(shape);
+                physicWorld.addBody(body);
+
+                // draw debug form
+                collisionLayer.beginFill(0xFF0000, 0.50);
+                collisionLayer.moveTo(
+                    item.vertices[0][0] + item.x,
+                    item.vertices[0][1] + item.y
+                );
+                item.vertices.slice(1).forEach(vertice => {
+                    collisionLayer.lineTo(
+                        vertice[0] + item.x,
+                        vertice[1] + item.y
+                    );
+                });
                 collisionLayer.closePath();
                 collisionLayer.endFill();
                 break;
+
             default:
                 throw new Error('Unknow collision type');
         }

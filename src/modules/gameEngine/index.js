@@ -20,8 +20,9 @@ const GameEngine = props => {
 
     const testBody = new Body({
         mass: 5,
-        position: [20, 100],
-        velocity: [0, 0]
+        position: [930, 100],
+        velocity: [0, 0],
+        fixedRotation: true
     });
 
     // Graphic objects
@@ -38,7 +39,7 @@ const GameEngine = props => {
 
     // Physical objects
     const physicWorld = new World({
-        gravity: [0, 9.82],
+        gravity: [0, 9.82]
 
     });
 
@@ -51,6 +52,7 @@ const GameEngine = props => {
         app.renderer.resize(width, height);
     };
 
+    app.stage.x = -1400;
     const handleMouseMove = e => {
         if (debugButtonPushed) {
             app.stage.x = app.stage.x + e.movementX;
@@ -74,20 +76,27 @@ const GameEngine = props => {
             collisionLayer.visible = true;
         }
         if (e.key === 'ArrowLeft') {
-            console.log(testBody.applyForce([-1000, -1000]));
             leftButtonPushed = true;
         }
         if (e.key === 'ArrowRight') {
-            console.log(testBody.applyForce([1000, -1000]));
             rightButtonPushed = true;
+        }
+        if (e.key === 'ArrowUp') {
+            testBody.velocity[1] = -50;
         }
     };
 
     const handleKeyUp = e => {
+        if (e.key === 'Control') {
+            debugButtonPushed = false;
+            collisionLayer.visible = false;
+        }
         if (e.key === 'ArrowLeft') {
+            testBody.velocity[0] = 0;
             leftButtonPushed = false;
         }
         if (e.key === 'ArrowRight') {
+            testBody.velocity[0] = 0;
             rightButtonPushed = false;
         }
     };
@@ -120,13 +129,18 @@ const GameEngine = props => {
             resolvInitialisation();
         });
 
-        physicWorld.on('impact', (a, b) => {
-            console.log(a, b);
+        // physicWorld.on('impact', (a, b) => {
+            // console.log(a, b);
+        // });
+
+        physicWorld.on('postStep', () => {
+            if (rightButtonPushed) {
+                testBody.velocity[0] = 10;
+            }
+            if (leftButtonPushed) {
+                testBody.velocity[0] = -10;
+            }
         });
-
-        // physicWorld.on('postStep', () => {
-        // })
-
     });
 
     const start = () => {
@@ -139,12 +153,12 @@ const GameEngine = props => {
         const testShape = new Box({
             width: 10,
             height: 10,
-            boundingRadius: 0
+            boundingRadius: 10
         });
         testBody.addShape(testShape);
         physicWorld.addBody(testBody);
 
-        const testPhysic = PIXI.Sprite.from('level.png');
+        const testPhysic = PIXI.Sprite.from('debug.png');
         console.log(testBody);
         testPhysic.x = testBody.position[0];
         testPhysic.y = testBody.position[1];
