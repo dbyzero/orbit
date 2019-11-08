@@ -2,8 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import {
-    World, Box, Body
+    World, Box, Body, ContactEquation
 } from 'p2';
+import {
+    COLLISION_GROUP_PLAYER,
+    COLLISION_GROUP_ENEMY,
+    COLLISION_GROUP_GROUND,
+    COLLISION_GROUP_RAMP,
+    PLAYER_MATERIAL,
+    CONTACT_MATERIAL_PLAYER_GROUND,
+    computeBForRamp
+} from '../../utils/physic';
 
 import loadTextures from './loadTextures';
 
@@ -19,7 +28,7 @@ const GameEngine = props => {
     const [status, setStatus] = useState('loading');
 
     const testBody = new Body({
-        mass: 5,
+        mass: 10,
         position: [930, 100],
         velocity: [0, 0],
         fixedRotation: true
@@ -40,8 +49,9 @@ const GameEngine = props => {
     // Physical objects
     const physicWorld = new World({
         gravity: [0, 9.82]
-
     });
+
+    physicWorld.solver.iterations = 1;
 
     // Handlers
     const handleWindowResize = () => {
@@ -129,9 +139,7 @@ const GameEngine = props => {
             resolvInitialisation();
         });
 
-        // physicWorld.on('impact', (a, b) => {
-            // console.log(a, b);
-        // });
+        physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
 
         physicWorld.on('postStep', () => {
             if (rightButtonPushed) {
@@ -141,9 +149,14 @@ const GameEngine = props => {
                 testBody.velocity[0] = -10;
             }
         });
+
+        // change computeB to block player on ramp
+        ContactEquation.prototype.computeB = computeBForRamp;
     });
 
     const start = () => {
+        console.log('Here is physic world:', physicWorld);
+
         setStatus('ready');
 
         /**
@@ -153,13 +166,15 @@ const GameEngine = props => {
         const testShape = new Box({
             width: 10,
             height: 10,
-            boundingRadius: 10
+            boundingRadius: 10,
+            collisionGroup: COLLISION_GROUP_PLAYER,
+            collisionMask: COLLISION_GROUP_ENEMY | COLLISION_GROUP_GROUND | COLLISION_GROUP_RAMP,
+            material: PLAYER_MATERIAL
         });
         testBody.addShape(testShape);
         physicWorld.addBody(testBody);
 
         const testPhysic = PIXI.Sprite.from('debug.png');
-        console.log(testBody);
         testPhysic.x = testBody.position[0];
         testPhysic.y = testBody.position[1];
         testPhysic.width = testBody.shapes[0].width;
@@ -170,8 +185,8 @@ const GameEngine = props => {
          *         END TEST           *
          ******************************/
 
-        app.stage.width *= 2;
-        app.stage.height *= 2;
+        app.stage.width = app.stage.width * 2;
+        app.stage.height = app.stage.height * 2;
 
         app.ticker.add(dt => {
             physicWorld.step(1 / FPS_WANTED, dt);

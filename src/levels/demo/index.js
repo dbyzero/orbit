@@ -1,8 +1,16 @@
 import {
     Box,
     Body,
+    // Plane,
     Convex
 } from 'p2';
+import {
+    COLLISION_GROUP_PLAYER,
+    COLLISION_GROUP_GROUND,
+    COLLISION_GROUP_ENEMY,
+    COLLISION_GROUP_RAMP,
+    GROUND_MATERIAL
+} from '../../utils/physic';
 
 import collisionItems from './collisionItems.json';
 
@@ -23,7 +31,10 @@ const loadCollision = (scene, physicWorld, collisionLayer) => {
 
                 shape = new Box({
                     width: item.width,
-                    height: item.height
+                    height: item.height,
+                    collisionGroup: COLLISION_GROUP_GROUND,
+                    collisionMask: COLLISION_GROUP_PLAYER | COLLISION_GROUP_ENEMY,
+                    material: GROUND_MATERIAL
                 });
 
                 // move shape to start at coord origin
@@ -49,14 +60,17 @@ const loadCollision = (scene, physicWorld, collisionLayer) => {
                 });
 
                 shape = new Convex({
-                    vertices: item.vertices
+                    vertices: item.vertices,
+                    collisionGroup: COLLISION_GROUP_RAMP,
+                    collisionMask: COLLISION_GROUP_PLAYER | COLLISION_GROUP_ENEMY,
+                    material: GROUND_MATERIAL
                 });
 
                 body.addShape(shape);
                 physicWorld.addBody(body);
 
                 // draw debug form
-                collisionLayer.beginFill(0xFF0000, 0.50);
+                collisionLayer.beginFill(0xFF7700, 0.50);
                 collisionLayer.moveTo(
                     item.vertices[0][0] + item.x,
                     item.vertices[0][1] + item.y
@@ -87,6 +101,35 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     bgLevel.height = 304;
     bgLevel.zIndex = 0;
     scene.addChild(bgLevel);
+
+    // const ceil = new Body();
+    // ceil.addShape(new Plane());
+    // physicWorld.addBody(ceil);
+
+    // const floor = new Body({
+    //     position: [bgLevel.x, bgLevel.height],
+    //     angle: Math.PI
+    // });
+    // floor.addShape(new Plane());
+    // physicWorld.addBody(floor);
+
+    // const left = new Body({
+    //     position: [bgLevel.x, bgLevel.y],
+    //     angle: 3 * Math.PI / 2
+    // });
+    // left.addShape(new Plane());
+    // physicWorld.addBody(left);
+
+    // const right = new Body({
+    //     position: [bgLevel.width, bgLevel.y],
+    //     angle: Math.PI / 2
+    // });
+    // right.addShape(new Plane());
+    // physicWorld.addBody(right);
+
+    // });
+    // ceil.addShape(new Plane());
+    // physicWorld.addBody(ceil);
 
     // const frames = [];
     // frames.push(PIXI.utils.TextureCache['adventurer-swrd-drw-00.png']);
