@@ -13,21 +13,15 @@ import MenuLayer from './modules/menuLayer';
 import UILayer from './modules/uiLayer';
 import GameLayer from './modules/gameLayer';
 
-// Contexte
-import GameEngineContext from './modules/gameEngine/context';
-
-
 ReactDOM.render(
     <Suspense fallback={<Loader />}>
         <I18nextProvider i18n={i18n}>
             <Provider store={store}>
-                <GameEngineContext.Provider>
-                    <Layout>
-                        <GameLayer />
-                        <UILayer />
-                        <MenuLayer />
-                    </Layout>
-                </GameEngineContext.Provider>
+                <Layout>
+                    <GameLayer />
+                    <UILayer />
+                    <MenuLayer />
+                </Layout>
             </Provider>
         </I18nextProvider>
     </Suspense>

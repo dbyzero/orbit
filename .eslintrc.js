@@ -185,7 +185,7 @@ module.exports = {
         'no-underscore-dangle': 0, // disallow dangling underscores in identifiers
         // "no-extra-parens": 1, // disallow wrapping of non-IIFE statements in parens
         'one-var': [1, 'never'], // allow just one var statement per function (off by default)
-        'operator-assignment': [1, 'never'], // require assignment operator shorthand where possible or prohibit it entirely (off by default)
+        'operator-assignment': [0, 'never'], // require assignment operator shorthand where possible or prohibit it entirely (off by default)
         'padded-blocks': [1, 'never'], // enforce padding within blocks (off by default)
         'quote-props': [1, 'as-needed'], // require quotes around object literal property names (off by default)
         quotes: [2, 'single'], // specify whether double or single quotes should be used

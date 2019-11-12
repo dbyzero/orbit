@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, useReducer } from 'react';
+
 import {
     World, Box, Body, ContactEquation
 } from 'p2';
@@ -15,6 +14,7 @@ import {
 } from '../../utils/physic';
 
 import loadTextures from './loadTextures';
+import cameraReducer from './reducer';
 
 const PIXI = require('pixi.js');
 
@@ -25,14 +25,14 @@ const GameEngine = props => {
     let debugButtonPushed = false;
     let leftButtonPushed = false;
     let rightButtonPushed = false;
+    // TODO camera need to be outside
+    const initialCamera = {
+        x: 0,
+        y: 0,
+        zoom: 4
+    };
     const [status, setStatus] = useState('loading');
-
-    const testBody = new Body({
-        mass: 10,
-        position: [930, 100],
-        velocity: [0, 0],
-        fixedRotation: true
-    });
+    const [stateCamera, dispatchCamera] = useReducer(cameraReducer, initialCamera);
 
     // Graphic objects
     const [app] = useState(new PIXI.Application({
@@ -42,6 +42,7 @@ const GameEngine = props => {
         forceFXAA: false,
         transparent: false
     }));
+
     const collisionLayer = new PIXI.Graphics();
     collisionLayer.visible = false;
     collisionLayer.zIndex = 1000;
@@ -50,34 +51,43 @@ const GameEngine = props => {
     const physicWorld = new World({
         gravity: [0, 9.82]
     });
-
     physicWorld.solver.iterations = 1;
 
     // Handlers
     const handleWindowResize = () => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        app.view.style.width = `${width}px`;
-        app.view.style.height = `${height}px`;
-        app.renderer.resize(width, height);
+        app.renderer.resize(props.camera.width, props.camera.height);
     };
 
-    app.stage.x = -1400;
+    /**
+     * ******************************
+     *         START TEST           *
+     ********************************/
+    const player = new Body({
+        mass: 10,
+        position: [930, 100],
+        velocity: [0, 0],
+        fixedRotation: true
+    });
+    /**
+     * ******************************
+     *         END TEST           *
+     ********************************/
+
     const handleMouseMove = e => {
         if (debugButtonPushed) {
-            app.stage.x = app.stage.x + e.movementX;
-            app.stage.y = app.stage.y + e.movementY;
+            stateCamera.x += e.movementX;
+            stateCamera.y += e.movementY;
+            dispatchCamera(stateCamera);
         }
     };
 
     const handleMouseWheel = e => {
         if (e.deltaY > 0) {
-            app.stage.width = app.stage.width * 0.95;
-            app.stage.height = app.stage.height * 0.95;
+            stateCamera.zoom = Math.max(0.5, stateCamera.zoom - 0.1);
         } else {
-            app.stage.width = app.stage.width / 0.95;
-            app.stage.height = app.stage.height / 0.95;
+            stateCamera.zoom = Math.min(4, stateCamera.zoom + 0.1);
         }
+        dispatchCamera(stateCamera);
     };
 
     const handleKeyDown = e => {
@@ -92,7 +102,7 @@ const GameEngine = props => {
             rightButtonPushed = true;
         }
         if (e.key === 'ArrowUp') {
-            testBody.velocity[1] = -50;
+            player.velocity[1] = -50;
         }
     };
 
@@ -102,11 +112,11 @@ const GameEngine = props => {
             collisionLayer.visible = false;
         }
         if (e.key === 'ArrowLeft') {
-            testBody.velocity[0] = 0;
+            player.velocity[0] = 0;
             leftButtonPushed = false;
         }
         if (e.key === 'ArrowRight') {
-            testBody.velocity[0] = 0;
+            player.velocity[0] = 0;
             rightButtonPushed = false;
         }
     };
@@ -122,8 +132,6 @@ const GameEngine = props => {
         PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
         // bind JS events
-        handleWindowResize();
-        window.addEventListener('resize', handleWindowResize, false);
         window.addEventListener('pointermove', handleMouseMove, false);
         window.addEventListener('keydown', handleKeyDown, false);
         window.addEventListener('keyup', handleKeyUp, false);
@@ -131,7 +139,7 @@ const GameEngine = props => {
 
         // load textures
         loadTextures().then(() => {
-            const Level = require(`../../levels/${props.level}`);
+            const Level = require(`../../levels/${props.level}`); // eslint-disable-line
             Level.loadScene(app.stage, physicWorld, collisionLayer);
 
             // add WebGL canvas container to DOM
@@ -142,11 +150,13 @@ const GameEngine = props => {
         physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
 
         physicWorld.on('postStep', () => {
-            if (rightButtonPushed) {
-                testBody.velocity[0] = 10;
-            }
-            if (leftButtonPushed) {
-                testBody.velocity[0] = -10;
+            if(!debugButtonPushed) {
+                if (rightButtonPushed) {
+                    player.velocity[0] = 10;
+                }
+                if (leftButtonPushed) {
+                    player.velocity[0] = -10;
+                }
             }
         });
 
@@ -155,7 +165,7 @@ const GameEngine = props => {
     });
 
     const start = () => {
-        console.log('Here is physic world:', physicWorld);
+        console.log('Here is physic world:', physicWorld); // eslint-disable-line no-console
 
         setStatus('ready');
 
@@ -163,7 +173,7 @@ const GameEngine = props => {
          * ******************************
          *         START TEST           *
          ********************************/
-        const testShape = new Box({
+        const playerShape = new Box({
             width: 10,
             height: 10,
             boundingRadius: 10,
@@ -171,36 +181,47 @@ const GameEngine = props => {
             collisionMask: COLLISION_GROUP_ENEMY | COLLISION_GROUP_GROUND | COLLISION_GROUP_RAMP,
             material: PLAYER_MATERIAL
         });
-        testBody.addShape(testShape);
-        physicWorld.addBody(testBody);
+        player.addShape(playerShape);
+        physicWorld.addBody(player);
 
-        const testPhysic = PIXI.Sprite.from('debug.png');
-        testPhysic.x = testBody.position[0];
-        testPhysic.y = testBody.position[1];
-        testPhysic.width = testBody.shapes[0].width;
-        testPhysic.height = testBody.shapes[0].height;
-        app.stage.addChild(testPhysic);
+        const playerSprite = PIXI.Sprite.from('debug.png');
+        playerSprite.x = player.position[0];
+        playerSprite.y = player.position[1] - playerSprite.height / 2;
+        playerSprite.width = player.shapes[0].width;
+        playerSprite.height = player.shapes[0].height;
+        app.stage.addChild(playerSprite);
+        app.view.style.width = `${window.innerWidth}px`;
+        app.view.style.height = `${window.innerHeighth}px`;
         /**
          * ****************************
          *         END TEST           *
          ******************************/
-
-        app.stage.width = app.stage.width * 2;
-        app.stage.height = app.stage.height * 2;
-
+        let oldCameraX = 0;
+        let oldCameraY = 0;
+        let newCameraX = 0;
+        let newCameraY = 0;
         app.ticker.add(dt => {
+            oldCameraX = stateCamera.x;
+            oldCameraY = stateCamera.y;
+            newCameraX = -player.position[0] * stateCamera.zoom + app.view.width / 2;
+            newCameraY = -player.position[1] * stateCamera.zoom + app.view.height / 2;
+            if (oldCameraX !== newCameraX
+                || oldCameraY !== newCameraY
+            ) {
+                stateCamera.x = newCameraX;
+                stateCamera.y = newCameraY;
+                dispatchCamera(stateCamera);
+            }
+
             physicWorld.step(1 / FPS_WANTED, dt);
-            /**
-             * ******************************
-             *         START TEST           *
-             ********************************/
-            testPhysic.x = testBody.position[0] - testPhysic.width / 2;
-            testPhysic.y = testBody.position[1] - testPhysic.height / 2;
-            // console.log(`${testPhysic.x} ${testPhysic.y}`);
-            /**
-             * ****************************
-             *         END TEST           *
-             ******************************/
+
+            playerSprite.x = player.position[0] - playerSprite.width / 2;
+            playerSprite.y = player.position[1] - playerSprite.height / 2;
+
+            app.stage.x = stateCamera.x;
+            app.stage.y = stateCamera.y;
+            app.stage.scale.x = stateCamera.zoom;
+            app.stage.scale.y = stateCamera.zoom;
         });
     };
 
@@ -210,23 +231,9 @@ const GameEngine = props => {
         init().then(start);
     }, [props.level]);
 
-    console.log(`Status: ${status}`);
-
     return (
         <div id="ViewPort" className={status} />
     );
 };
 
-const mapStoreToProps = store => ({
-    menuLayer: store.menuLayer
-});
-
-// const mapDispatchToProps = dispatch => ({
-//     toggleGameLayer: () => dispatch(toggleGameLayer())
-// });
-
-const enhance = compose(
-    connect(mapStoreToProps, null)
-);
-
-export default enhance(GameEngine);
+export default GameEngine;

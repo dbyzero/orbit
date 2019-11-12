@@ -9,15 +9,13 @@ import GameEngine from '../gameEngine';
 
 import './style.scss';
 
-const GameLayer = props => {
-    return (
-        <div className="gameLayer">
-            <div>
-                <GameEngine level="demo" />
-            </div>
+const GameLayer = () => (
+    <div className="gameLayer">
+        <div>
+            <GameEngine level="demo" />
         </div>
-    );
-};
+    </div>
+);
 
 const mapStoreToProps = store => ({
     gameLayer: store.gameLayer

@@ -1,18 +1,18 @@
-export function moveCamera(dx, dy) {
+export function moveCamera(dX, dY) {
     return {
         type: 'MOVE_CAMERA',
-        value: {
-            dx: dx,
-            dy: dy
+        payload: {
+            dX,
+            dY
         }
     };
 }
 
-export function zoomCamera(dz) {
+export function zoomCamera(dZ) {
     return {
         type: 'ZOOM_CAMERA',
-        value: {
-            dz: dz
+        payload: {
+            dZ
         }
     };
 }
@@ -20,16 +20,9 @@ export function zoomCamera(dz) {
 export function cameraResize(width, height) {
     return {
         type: 'CAMERA_RESIZE',
-        value: {
-            width: width,
-            height: height
+        payload: {
+            width,
+            height
         }
-    };
-}
-
-export function updateTotalDisplayShown(count) {
-    return {
-        type: 'UPDATE_TOTAL_DISPLAY_SHOWN',
-        value: count
     };
 }
