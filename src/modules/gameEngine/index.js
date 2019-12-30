@@ -29,7 +29,7 @@ const GameEngine = props => {
     const initialCamera = {
         x: 0,
         y: 0,
-        zoom: 4
+        zoom: 2
     };
     const [status, setStatus] = useState('loading');
     const [stateCamera, dispatchCamera] = useReducer(cameraReducer, initialCamera);
@@ -55,7 +55,9 @@ const GameEngine = props => {
 
     // Handlers
     const handleWindowResize = () => {
-        app.renderer.resize(props.camera.width, props.camera.height);
+        app.renderer.resize(window.innerWidth, window.innerHeight);
+        app.view.style.width = `${window.innerWidth}px`;
+        app.view.style.height = `${window.innerHeighth}px`;
     };
 
     /**
@@ -78,6 +80,7 @@ const GameEngine = props => {
             stateCamera.x += e.movementX;
             stateCamera.y += e.movementY;
             dispatchCamera(stateCamera);
+            console.log(stateCamera);
         }
     };
 
@@ -92,8 +95,8 @@ const GameEngine = props => {
 
     const handleKeyDown = e => {
         if (e.key === 'Control') {
-            debugButtonPushed = true;
-            collisionLayer.visible = true;
+            debugButtonPushed = !debugButtonPushed;
+            collisionLayer.visible = !collisionLayer.visible;
         }
         if (e.key === 'ArrowLeft') {
             leftButtonPushed = true;
@@ -107,10 +110,6 @@ const GameEngine = props => {
     };
 
     const handleKeyUp = e => {
-        if (e.key === 'Control') {
-            debugButtonPushed = false;
-            collisionLayer.visible = false;
-        }
         if (e.key === 'ArrowLeft') {
             player.velocity[0] = 0;
             leftButtonPushed = false;
@@ -136,6 +135,7 @@ const GameEngine = props => {
         window.addEventListener('keydown', handleKeyDown, false);
         window.addEventListener('keyup', handleKeyUp, false);
         window.addEventListener('wheel', handleMouseWheel, false);
+        window.addEventListener('resize', handleWindowResize, false);
 
         // load textures
         loadTextures().then(() => {
@@ -150,7 +150,7 @@ const GameEngine = props => {
         physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
 
         physicWorld.on('postStep', () => {
-            if(!debugButtonPushed) {
+            if (!debugButtonPushed) {
                 if (rightButtonPushed) {
                     player.velocity[0] = 10;
                 }
@@ -201,16 +201,18 @@ const GameEngine = props => {
         let newCameraX = 0;
         let newCameraY = 0;
         app.ticker.add(dt => {
-            oldCameraX = stateCamera.x;
-            oldCameraY = stateCamera.y;
-            newCameraX = -player.position[0] * stateCamera.zoom + app.view.width / 2;
-            newCameraY = -player.position[1] * stateCamera.zoom + app.view.height / 2;
-            if (oldCameraX !== newCameraX
-                || oldCameraY !== newCameraY
-            ) {
-                stateCamera.x = newCameraX;
-                stateCamera.y = newCameraY;
-                dispatchCamera(stateCamera);
+            if (!debugButtonPushed) {
+                oldCameraX = stateCamera.x;
+                oldCameraY = stateCamera.y;
+                newCameraX = -player.position[0] * stateCamera.zoom + app.view.width / 2;
+                newCameraY = -player.position[1] * stateCamera.zoom + app.view.height / 2;
+                if (oldCameraX !== newCameraX
+                    || oldCameraY !== newCameraY
+                ) {
+                    stateCamera.x = newCameraX;
+                    stateCamera.y = newCameraY;
+                    dispatchCamera(stateCamera);
+                }
             }
 
             physicWorld.step(1 / FPS_WANTED, dt);

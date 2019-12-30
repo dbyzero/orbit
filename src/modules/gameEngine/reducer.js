@@ -6,7 +6,7 @@ const initialState = () => (
         initialHeight: window.innerHeight,
         width: window.innerWidth,
         height: window.innerHeight,
-        zoom: 2
+        zoom: 1
     }
 );
 

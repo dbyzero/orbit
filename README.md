@@ -2,7 +2,8 @@
 
 ## TODO
 
-- Travailler camera
+- Travailler camera DONE
+- Travailler resize 
 - Travailler zoom
 - Travailler mobile (touch vs click/move)
 - Ajouter UI Mobile
