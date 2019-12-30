@@ -128,6 +128,8 @@ const GameEngine = props => {
         // add some custom settings
         app.renderer.autoResize = true;
         app.stage.autoResize = true;
+        app.view.style.width = `${window.innerWidth}px`;
+        app.view.style.height = `${window.innerHeighth}px`;
         PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
         // bind JS events
@@ -184,30 +186,25 @@ const GameEngine = props => {
         player.addShape(playerShape);
         physicWorld.addBody(player);
 
-        const playerSprite = PIXI.Sprite.from('debug.png');
+        const playerSprite = PIXI.Sprite.from(PIXI.Texture.WHITE);
         playerSprite.x = player.position[0];
         playerSprite.y = player.position[1] - playerSprite.height / 2;
         playerSprite.width = player.shapes[0].width;
         playerSprite.height = player.shapes[0].height;
         app.stage.addChild(playerSprite);
-        app.view.style.width = `${window.innerWidth}px`;
-        app.view.style.height = `${window.innerHeighth}px`;
         /**
          * ****************************
          *         END TEST           *
          ******************************/
-        let oldCameraX = 0;
-        let oldCameraY = 0;
+
         let newCameraX = 0;
         let newCameraY = 0;
         app.ticker.add(dt => {
             if (!debugButtonPushed) {
-                oldCameraX = stateCamera.x;
-                oldCameraY = stateCamera.y;
                 newCameraX = -player.position[0] * stateCamera.zoom + app.view.width / 2;
                 newCameraY = -player.position[1] * stateCamera.zoom + app.view.height / 2;
-                if (oldCameraX !== newCameraX
-                    || oldCameraY !== newCameraY
+                if (stateCamera.x !== newCameraX
+                    || stateCamera.y !== newCameraY
                 ) {
                     stateCamera.x = newCameraX;
                     stateCamera.y = newCameraY;
@@ -215,15 +212,15 @@ const GameEngine = props => {
                 }
             }
 
-            physicWorld.step(1 / FPS_WANTED, dt);
-
-            playerSprite.x = player.position[0] - playerSprite.width / 2;
-            playerSprite.y = player.position[1] - playerSprite.height / 2;
-
             app.stage.x = stateCamera.x;
             app.stage.y = stateCamera.y;
             app.stage.scale.x = stateCamera.zoom;
             app.stage.scale.y = stateCamera.zoom;
+
+            playerSprite.x = player.position[0] - playerSprite.width / 2;
+            playerSprite.y = player.position[1] - playerSprite.height / 2;
+
+            physicWorld.step(1 / FPS_WANTED, dt);
         });
     };
 
