@@ -26,3 +26,13 @@ export function cameraResize(width, height) {
         }
     };
 }
+
+export function setCameraPosition(x, y) {
+    return {
+        type: 'SET_CAMERA_POSITION',
+        payload: {
+            x,
+            y
+        }
+    };
+}
