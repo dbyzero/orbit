@@ -1,4 +1,4 @@
-export const initialState = {
+const initialState = {
     x: 0,
     y: 0,
     initialWidth: window.innerWidth,

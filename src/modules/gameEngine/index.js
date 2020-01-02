@@ -1,9 +1,14 @@
 // Libs
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     World, Box, Body, ContactEquation
 } from 'p2';
 import * as PIXI from 'pixi.js';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withTranslation } from 'react-i18next';
+
+
 
 // Components
 import {
@@ -16,7 +21,6 @@ import {
     computeBForRamp
 } from '../../utils/physic';
 import loadTextures from './loadTextures';
-import cameraReducer, { initialState as cameraInitialCamera } from './reducer';
 import { moveCamera, zoomCamera, setCameraPosition } from './actions';
 
 // used to track button state
@@ -38,9 +42,9 @@ app.renderer.autoResize = true;
 app.stage.autoResize = true;
 app.view.style.width = `${window.innerWidth}px`;
 app.view.style.height = `${window.innerHeighth}px`;
-const camera = {};
 let newCameraX;
 let newCameraY;
+const camera = {};
 
 /**
  * ******************************
@@ -82,19 +86,17 @@ const FPS_WANTED = 60;
 
 const GameEngine = props => {
     const [status, setStatus] = useState('loading');
-    const [stateCamera, dispatchCamera] = useReducer(cameraReducer, cameraInitialCamera);
 
-    // since async function cannot access reducer vars, we create new scop variables updated when store change
-    camera.x = stateCamera.x;
-    camera.y = stateCamera.y;
-    camera.zoom = stateCamera.zoom;
+    camera.x = props.gameEngine.x;
+    camera.y = props.gameEngine.y;
+    camera.zoom = props.gameEngine.zoom;
 
     // Initialisation script, a promise!
     const init = () => new Promise(resolvInitialisation => {
         // bind JS events
         window.addEventListener('pointermove', e => {
             if (debugButtonPushed) {
-                dispatchCamera(moveCamera(e.movementX, e.movementY));
+                props.moveCamera(e.movementX, e.movementY);
             }
         }, false);
         window.addEventListener('keydown', e => {
@@ -112,7 +114,7 @@ const GameEngine = props => {
                 player.velocity[1] = -50;
             }
             if (e.key === 'r') {
-                dispatchCamera(zoomCamera(1));
+                props.zoomCamera(1);
             }
         }, false);
         window.addEventListener('keyup', e => {
@@ -127,9 +129,9 @@ const GameEngine = props => {
         }, false);
         window.addEventListener('wheel', e => {
             if (e.deltaY > 0) {
-                dispatchCamera(zoomCamera(Math.max(0.5, camera.zoom - 0.1)));
+                props.zoomCamera(Math.max(0.5, camera.zoom - 0.1));
             } else {
-                dispatchCamera(zoomCamera(Math.min(4, camera.zoom + 0.1)));
+                props.zoomCamera(Math.min(4, camera.zoom + 0.1));
             }
             e.stopPropagation();
         }, false);
@@ -157,7 +159,7 @@ const GameEngine = props => {
             if (camera.x !== newCameraX
                 || camera.y !== newCameraY
             ) {
-                dispatchCamera(setCameraPosition(newCameraX, newCameraY));
+                props.setCameraPosition(newCameraX, newCameraY);
             }
         }
 
@@ -217,4 +219,19 @@ const GameEngine = props => {
     );
 };
 
-export default GameEngine;
+const mapStoreToProps = store => ({
+    gameEngine: store.gameEngine
+});
+
+const mapDispatchToProps = dispatch => ({
+    moveCamera: (x, y) => dispatch(moveCamera(x, y)),
+    zoomCamera: z => dispatch(zoomCamera(z)),
+    setCameraPosition: (x, y) => dispatch(setCameraPosition(x, y))
+});
+
+const enhance = compose(
+    connect(mapStoreToProps, mapDispatchToProps),
+    withTranslation()
+);
+
+export default enhance(GameEngine);

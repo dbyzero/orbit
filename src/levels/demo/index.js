@@ -216,7 +216,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-rdy-00.png']);
     // frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-00.png']);
     // frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-01.png']);
-    // frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-02.png']);
+    // frames2.push(PI`XI.utils.TextureCache['adventurer-air-attack-3-end-02.png']);
     // const spriteAnimated2 = new PIXI.AnimatedSprite(frames2);
     // spriteAnimated2.x = 200;
     // spriteAnimated2.y = 100;

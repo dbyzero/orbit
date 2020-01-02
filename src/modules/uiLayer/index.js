@@ -1,20 +1,15 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 
-
-// HOC
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { showMenuLayer } from '../menuLayer/actions';
-import cameraReducer, { initialState as cameraInitialCamera } from '../gameEngine/reducer';
 import { zoomCamera } from '../gameEngine/actions';
 
 import './style.scss';
 
 const UILayer = props => {
-    const [stateCamera, dispatchCamera] = useReducer(cameraReducer, cameraInitialCamera);
-
     if (props.uiLayer.showUI === false) {
         return null;
     }
@@ -22,21 +17,21 @@ const UILayer = props => {
         <div className="uiLayer">
             <div>
                 UI, current zoom:
-                {stateCamera.zoom}
+                {props.gameEngine.zoom}
             </div>
             <button type="button" onClick={props.showMenuLayer}>
                 Show menu
             </button>
-            <button type="button" onClick={() => {dispatchCamera(zoomCamera(1))}}>
+            <button type="button" onClick={() => { props.zoomCamera(1); }}>
                 Zoom 1
             </button>
-            <button type="button" onClick={() => {dispatchCamera(zoomCamera(2))}}>
+            <button type="button" onClick={() => { props.zoomCamera(2); }}>
                 Zoom 2
             </button>
-            <button type="button" onClick={() => {dispatchCamera(zoomCamera(3))}}>
+            <button type="button" onClick={() => { props.zoomCamera(3); }}>
                 Zoom 3
             </button>
-            <button type="button" onClick={() => {dispatchCamera(zoomCamera(4))}}>
+            <button type="button" onClick={() => { props.zoomCamera(4); }}>
                 Zoom 4
             </button>
         </div>
@@ -44,11 +39,13 @@ const UILayer = props => {
 };
 
 const mapStoreToProps = store => ({
+    gameEngine: store.gameEngine,
     uiLayer: store.uiLayer
 });
 
 const mapDispatchToProps = dispatch => ({
-    showMenuLayer: () => dispatch(showMenuLayer())
+    showMenuLayer: () => dispatch(showMenuLayer()),
+    zoomCamera: z => dispatch(zoomCamera(z))
 });
 
 const enhance = compose(
