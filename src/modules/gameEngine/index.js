@@ -41,6 +41,7 @@ app.renderer.autoResize = true;
 app.stage.autoResize = true;
 app.view.style.width = `${window.innerWidth}px`;
 app.view.style.height = `${window.innerHeighth}px`;
+app.renderer.resize(window.innerWidth, window.innerHeight);
 let newCameraX;
 let newCameraY;
 const camera = {};
@@ -203,9 +204,6 @@ const init = level => new Promise(resolvInitialisation => {
 // Start game loop fn
 const start = () => {
     console.log('Here is physic world:', physicWorld); // eslint-disable-line no-console
-
-    app.view.style.width = `${window.innerWidth}px`;
-    app.view.style.height = `${window.innerHeighth}px`;
 
     initTestComponent();
     app.ticker.add(gameLoopFunction);
