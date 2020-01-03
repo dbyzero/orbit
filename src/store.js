@@ -9,7 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 
 // Bootstrap reducers
 const reducers_required = {};
-['test', 'menuLayer', 'uiLayer', 'gameEngine'].forEach(reducer => {
+['menuLayer', 'uiLayer', 'camera'].forEach(reducer => {
     reducers_required[reducer] = require(`./modules/${ reducer }/reducer`).default;
 });
 const reducers = combineReducers(reducers_required);

@@ -20,7 +20,7 @@ import {
     computeBForRamp
 } from '../../utils/physic';
 import loadTextures from './loadTextures';
-import { moveCamera, zoomCamera, setCameraPosition } from './actions';
+import { moveCamera, zoomCamera, setCameraPosition } from '../camera/actions';
 
 // used to track button state
 let debugButtonPushed = false;
@@ -42,9 +42,23 @@ app.stage.autoResize = true;
 app.view.style.width = `${window.innerWidth}px`;
 app.view.style.height = `${window.innerHeighth}px`;
 app.renderer.resize(window.innerWidth, window.innerHeight);
+
+// Camera stuff
 let newCameraX;
 let newCameraY;
 const camera = {};
+
+// Physical stuff
+const physicWorld = new World({
+    gravity: [0, 9.82]
+});
+physicWorld.solver.iterations = 1;
+physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
+ContactEquation.prototype.computeB = computeBForRamp; // change computeB to block player on ramp
+const collisionLayer = new PIXI.Graphics();
+collisionLayer.visible = false;
+collisionLayer.zIndex = 1000;
+const FPS_WANTED = 60;
 
 /**
  * ******************************
@@ -57,17 +71,7 @@ const player = new Body({
     fixedRotation: true
 });
 const playerSprite = PIXI.Sprite.from(PIXI.Texture.WHITE);
-/**
- * ******************************
- *         END TEST           *
- ********************************/
 
-// Physical stuff
-const physicWorld = new World({
-    gravity: [0, 9.82]
-});
-physicWorld.solver.iterations = 1;
-physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
 physicWorld.on('postStep', () => {
     if (!debugButtonPushed) {
         if (rightButtonPushed) {
@@ -78,16 +82,7 @@ physicWorld.on('postStep', () => {
         }
     }
 });
-ContactEquation.prototype.computeB = computeBForRamp; // change computeB to block player on ramp
-const collisionLayer = new PIXI.Graphics();
-collisionLayer.visible = false;
-collisionLayer.zIndex = 1000;
-const FPS_WANTED = 60;
 
-/**
- * ******************************
- *         START TEST           *
- ********************************/
 const initTestComponent = () => {
     const playerShape = new Box({
         width: 10,
@@ -171,14 +166,15 @@ const gameLoopFunction = dt => {
         }
     }
 
+    playerSprite.x = player.position[0] - playerSprite.width / 2;
+    playerSprite.y = player.position[1] - playerSprite.height / 2;
+
     app.stage.x = camera.x;
     app.stage.y = camera.y;
     app.stage.scale.x = camera.zoom;
     app.stage.scale.y = camera.zoom;
 
-    playerSprite.x = player.position[0] - playerSprite.width / 2;
-    playerSprite.y = player.position[1] - playerSprite.height / 2;
-
+    // TODO :update game physic slower
     physicWorld.step(1 / FPS_WANTED, dt);
 };
 
@@ -213,9 +209,9 @@ const GameEngine = props => {
     const [status, setStatus] = useState('loading');
 
     // Update camera on application update
-    camera.x = props.gameEngine.x;
-    camera.y = props.gameEngine.y;
-    camera.zoom = props.gameEngine.zoom;
+    camera.x = props.camera.x;
+    camera.y = props.camera.y;
+    camera.zoom = props.camera.zoom;
 
     useEffect(() => {
         setStatus(`initializing ${props.level}`);
@@ -231,7 +227,7 @@ const GameEngine = props => {
 };
 
 const mapStoreToProps = _store => ({
-    gameEngine: _store.gameEngine
+    camera: _store.camera
 });
 
 const enhance = compose(

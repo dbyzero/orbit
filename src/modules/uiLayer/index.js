@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { showMenuLayer } from '../menuLayer/actions';
-import { zoomCamera } from '../gameEngine/actions';
+import { zoomCamera } from '../camera/actions';
 
 import './style.scss';
 
@@ -17,7 +17,7 @@ const UILayer = props => {
         <div className="uiLayer">
             <div>
                 UI, current zoom:
-                {props.gameEngine.zoom}
+                {props.camera.zoom}
             </div>
             <button type="button" onClick={props.showMenuLayer}>
                 Show menu
@@ -39,7 +39,7 @@ const UILayer = props => {
 };
 
 const mapStoreToProps = store => ({
-    gameEngine: store.gameEngine,
+    camera: store.camera,
     uiLayer: store.uiLayer
 });
 
