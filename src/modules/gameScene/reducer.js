@@ -1,5 +1,5 @@
 const initialState = {
-    avatar: null,
+    player: null,
     monsters: {},
     players: {},
     projectiles: {},
@@ -9,8 +9,8 @@ const initialState = {
 export default (state = initialState, action) => {
     const newState = Object.assign({}, state);
     switch (action.type) {
-        case 'SET_AVATAR':
-            newState.avatar = action.payload.avatar;
+        case 'SET_PLAYER':
+            newState.player = action.payload.player;
             return newState;
         case 'ADD_MONSTER':
             newState.monsters[action.payload.monster.id] = action.payload.monster;

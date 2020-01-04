@@ -10,8 +10,9 @@ import {
     setPhysicEngine
 } from './actions';
 
+const FPS_WANTED = 60;
 
-const initPhysicEngine = () => {
+export function initPhysicEngine() {
     const physicWorld = new World({
         gravity: [0, 9.82]
     });
@@ -20,6 +21,9 @@ const initPhysicEngine = () => {
     ContactEquation.prototype.computeB = computeBForRamp; // change computeB to block player on ramp
 
     store.dispatch(setPhysicEngine(physicWorld));
-};
+}
 
-export default initPhysicEngine;
+export function updatePhysicEngine(dt) {
+    const state = store.getState();
+    state.gameEngine.physicEngine.step(1 / FPS_WANTED, dt);
+}

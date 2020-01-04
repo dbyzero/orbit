@@ -2,15 +2,16 @@
 
 ## TODO
 
-- Travailler camera DONE
-- Travailler resize DONE
-- Travailler zoom DONE
-- Les useReducers ne sont pas transverse. Voir comment utiliser les contextes DONE (utilisation de redux)
+- DONE Travailler camera DONE
+- DONE Travailler resize DONE
+- DONE Travailler zoom DONE
+- DONE Les useReducers ne sont pas transverse. Voir comment utiliser les contextes DONE (utilisation de redux)
+- DONE - Travailler clean code pour player :
+- DONE    - obj : object physic
+- DONE    - {} : animations
+- DONE    - currentAnimation
 
-- Travailler clean code pour player :
-    - obj : object physic
-    - {} : animations
-    - currentAnimation
+Travailler sur les animation du player
 
 - Travailler mobile (touch vs click/move)
 - Ajouter UI Mobile

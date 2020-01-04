@@ -168,7 +168,7 @@ module.exports = {
 
         // require or disallow an empty line between class members
         // https://eslint.org/docs/rules/lines-between-class-members
-        'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: false }],
+        'lines-between-class-members': ['off', 'always', { exceptAfterSingleLine: false }],
 
         // enforces empty lines around comments
         'lines-around-comment': 'off',

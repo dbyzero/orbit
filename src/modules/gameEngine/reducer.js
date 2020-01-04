@@ -1,7 +1,8 @@
 const initialState = {
     physicEngine: null,
     graphicEngine: null,
-    debugLayer: null
+    debugLayer: null,
+    debugModeActive: false
 };
 
 export default (state = initialState, action) => {
@@ -16,8 +17,9 @@ export default (state = initialState, action) => {
         case 'SET_DEBUG_LAYER':
             newState.debugLayer = action.payload.debugLayer;
             return newState;
-        case 'TOGGLE_DEBUG_LAYER':
-            newState.debugLayer.visible = !newState.debugLayer.visible;
+        case 'TOGGLE_DEBUG_MODE':
+            newState.debugModeActive = !newState.debugModeActive;
+            newState.debugLayer.visible = newState.debugModeActive;
             return newState;
         case 'LOGOUT':
             return initialState;

@@ -1,97 +1,62 @@
 // Libs
 import React, { useState, useEffect } from 'react';
-import {
-    Box, Body
-} from 'p2';
-import * as PIXI from 'pixi.js';
 import store from '../../store';
 
 // Components
 import loadTextures from './loadTextures';
 import {
-    COLLISION_GROUP_PLAYER,
-    COLLISION_GROUP_ENEMY,
-    COLLISION_GROUP_GROUND,
-    COLLISION_GROUP_RAMP,
-    PLAYER_MATERIAL
-} from '../../utils/physic';
-import {
     moveCamera,
-    zoomCamera,
-    setCameraPosition
+    zoomCamera
 } from '../gameCamera/actions';
 import {
-    toggleDebugLayer
+    toggleDebugMode
 } from './actions';
-import initPhysicEngine from './physicEngine';
-import initGraphicEngine from './graphicEngine';
+import {
+    setPlayer
+} from '../gameScene/actions';
+import { initPhysicEngine, updatePhysicEngine } from './physicEngine';
+import { initGraphicEngine, updateGraphicEngine } from './graphicEngine';
+import Player from '../gameModels/player';
 
 // vars used in engines
-let debugButtonPushed = false;
 let leftButtonPushed = false;
 let rightButtonPushed = false;
-let newCameraX = 0;
-let newCameraY = 0;
-const FPS_WANTED = 60;
 
-
-/**
- * ******************************
- *         START TEST           *
- ********************************/
-const player = new Body({
-    mass: 10,
-    position: [330, 100],
-    velocity: [0, 0],
-    fixedRotation: true
-});
-const playerSprite = PIXI.Sprite.from(PIXI.Texture.WHITE);
-
-const initTestComponent = () => {
+const initPlayer = () => {
     const state = store.getState();
-
+    const player = new Player({
+        x: 330,
+        y: 100,
+        mass: 10,
+        width: 10,
+        height: 10
+    });
+    store.dispatch(setPlayer(player));
     state.gameEngine.physicEngine.on('postStep', () => {
-        if (!debugButtonPushed) {
+        if (state.gameEngine.debugModeActive === false) {
             if (rightButtonPushed) {
-                player.velocity[0] = 10;
+                player.setVelocity(10);
             }
             if (leftButtonPushed) {
-                player.velocity[0] = -10;
+                player.setVelocity(-10);
             }
         }
     });
-    const playerShape = new Box({
-        width: 10,
-        height: 10,
-        boundingRadius: 10,
-        collisionGroup: COLLISION_GROUP_PLAYER,
-        collisionMask: COLLISION_GROUP_ENEMY | COLLISION_GROUP_GROUND | COLLISION_GROUP_RAMP,
-        material: PLAYER_MATERIAL
-    });
-    player.addShape(playerShape);
-    state.gameEngine.physicEngine.addBody(player);
-
-    playerSprite.x = player.position[0];
-    playerSprite.y = player.position[1] - playerSprite.height / 2;
-    playerSprite.width = player.shapes[0].width;
-    playerSprite.height = player.shapes[0].height;
-    state.gameEngine.graphicEngine.stage.addChild(playerSprite);
+    state.gameEngine.physicEngine.addBody(player.physicObject);
+    state.gameEngine.graphicEngine.stage.addChild(player.graphicObject);
 };
-/**
- * ****************************
- *         END TEST           *
- ******************************/
 
 // Handle device event
 const handlePointerMove = e => {
-    if (debugButtonPushed) {
+    const state = store.getState();
+    if (state.gameEngine.debugModeActive === true) {
         store.dispatch(moveCamera(e.movementX, e.movementY));
     }
 };
 const handleKeyDown = e => {
+    const state = store.getState();
     if (e.key === 'Control') {
-        debugButtonPushed = !debugButtonPushed;
-        store.dispatch(toggleDebugLayer());
+        store.dispatch(toggleDebugMode());
     }
     if (e.key === 'ArrowLeft') {
         leftButtonPushed = true;
@@ -100,19 +65,20 @@ const handleKeyDown = e => {
         rightButtonPushed = true;
     }
     if (e.key === 'ArrowUp') {
-        player.velocity[1] = -50;
+        state.gameScene.player.jump();
     }
     if (e.key === 'r') {
         store.dispatch(zoomCamera(1));
     }
 };
 const handleKeyUp = e => {
+    const state = store.getState();
     if (e.key === 'ArrowLeft') {
-        player.velocity[0] = 0;
+        state.gameScene.player.setVelocity(0);
         leftButtonPushed = false;
     }
     if (e.key === 'ArrowRight') {
-        player.velocity[0] = 0;
+        state.gameScene.player.setVelocity(0);
         rightButtonPushed = false;
     }
 };
@@ -134,27 +100,8 @@ const handleResize = () => {
 
 // Game loop function
 const gameLoopFunction = dt => {
-    const state = store.getState();
-    if (!debugButtonPushed) {
-        newCameraX = -player.position[0] * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.width / 2;
-        newCameraY = -player.position[1] * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.height / 2;
-        if (state.gameCamera.x !== newCameraX
-            || state.gameCamera.y !== newCameraY
-        ) {
-            store.dispatch(setCameraPosition(newCameraX, newCameraY));
-        }
-    }
-
-    playerSprite.x = player.position[0] - playerSprite.width / 2;
-    playerSprite.y = player.position[1] - playerSprite.height / 2;
-
-    state.gameEngine.graphicEngine.stage.x = state.gameCamera.x;
-    state.gameEngine.graphicEngine.stage.y = state.gameCamera.y;
-    state.gameEngine.graphicEngine.stage.scale.x = state.gameCamera.zoom;
-    state.gameEngine.graphicEngine.stage.scale.y = state.gameCamera.zoom;
-
-    // TODO :update game physic slower
-    state.gameEngine.physicEngine.step(1 / FPS_WANTED, dt);
+    updatePhysicEngine(dt);
+    updateGraphicEngine();
 };
 
 // Initialisation script, a promise!
@@ -167,9 +114,7 @@ const init = level => new Promise(resolvInitialisation => {
 
     initPhysicEngine();
     initGraphicEngine();
-
-    // initPhysicalEngine();
-    // initGraphicEngine();
+    initPlayer();
 
     // Load textures
     loadTextures().then(() => {
@@ -187,8 +132,6 @@ const init = level => new Promise(resolvInitialisation => {
 const start = () => {
     const state = store.getState();
     console.log('Here is physic world:', state.gameEngine.physicalEngine); // eslint-disable-line no-console
-
-    initTestComponent();
     state.gameEngine.graphicEngine.ticker.add(gameLoopFunction);
 };
 

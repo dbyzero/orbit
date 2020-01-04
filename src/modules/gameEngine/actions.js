@@ -25,9 +25,9 @@ export function setDebugLayer(debugLayer) {
     };
 }
 
-export function toggleDebugLayer() {
+export function toggleDebugMode() {
     return {
-        type: 'TOGGLE_DEBUG_LAYER',
+        type: 'TOGGLE_DEBUG_MODE',
         payload: {}
     };
 }
