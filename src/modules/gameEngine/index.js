@@ -42,8 +42,6 @@ const initPlayer = () => {
             }
         }
     });
-    state.gameEngine.physicEngine.addBody(player.physicObject);
-    state.gameEngine.graphicEngine.stage.addChild(player.graphicObject);
 };
 
 // Handle device event
@@ -98,12 +96,6 @@ const handleResize = () => {
     state.gameEngine.graphicEngine.view.style.height = `${window.innerHeighth}px`;
 };
 
-// Game loop function
-const gameLoopFunction = dt => {
-    updatePhysicEngine(dt);
-    updateGraphicEngine();
-};
-
 // Initialisation script, a promise!
 const init = level => new Promise(resolvInitialisation => {
     window.addEventListener('pointermove', handlePointerMove, false);
@@ -128,10 +120,15 @@ const init = level => new Promise(resolvInitialisation => {
     });
 });
 
+// Game loop function
+const gameLoopFunction = dt => {
+    updatePhysicEngine(dt);
+    updateGraphicEngine();
+};
+
 // Start game loop fn
 const start = () => {
     const state = store.getState();
-    console.log('Here is physic world:', state.gameEngine.physicalEngine); // eslint-disable-line no-console
     state.gameEngine.graphicEngine.ticker.add(gameLoopFunction);
 };
 

@@ -9,6 +9,7 @@ import {
     COLLISION_GROUP_RAMP,
     PLAYER_MATERIAL
 } from '../../utils/physic';
+import store from '../../store';
 
 class Player {
     physicObject = null;
@@ -16,6 +17,7 @@ class Player {
     jumpSpeed = -50;
 
     constructor(param) {
+        const state = store.getState();
         this.physicObject = new Body({
             mass: param.mass,
             position: [param.x, param.y],
@@ -39,6 +41,9 @@ class Player {
         this.graphicObject.width = this.physicObject.shapes[0].width;
         this.graphicObject.height = this.physicObject.shapes[0].height;
         this.graphicObject.zIndex = 100;
+
+        state.gameEngine.physicEngine.addBody(this.physicObject);
+        state.gameEngine.graphicEngine.stage.addChild(this.graphicObject);
     }
     // animation
     // const animations = {
@@ -77,8 +82,6 @@ Player.prototype.setVelocity = function (x, y) {
 
 Player.prototype.setPosition = function (x, y) {
     this.physicObject.position = [x, y];
-    this.graphicObject.x = x;
-    this.graphicObject.y = y - this.graphicObject.height / 2;
 };
 
 Player.prototype.move = function (x, y) {
@@ -86,19 +89,17 @@ Player.prototype.move = function (x, y) {
         this.physicObject.position.x + x,
         this.physicObject.position.y + y
     ];
-    this.graphicObject.x = this.graphicObject.x + x;
-    this.graphicObject.y = this.graphicObject.y + y - this.graphicObject.height / 2;
 };
 
 Player.prototype.jump = function () {
     this.physicObject.velocity[1] = -50;
 };
 
-Player.prototype.update = function () {
+Player.prototype.render = function () {
     this.graphicObject.x = this.physicObject.position[0]
         - this.graphicObject.width / 2;
     this.graphicObject.y = this.physicObject.position[1]
         - this.graphicObject.height / 2;
-}
+};
 
 export default Player;

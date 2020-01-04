@@ -11,7 +11,8 @@
 - DONE    - {} : animations
 - DONE    - currentAnimation
 
-Travailler sur les animation du player
+- Improve level loading
+- Travailler sur les animation du player
 
 - Travailler mobile (touch vs click/move)
 - Ajouter UI Mobile

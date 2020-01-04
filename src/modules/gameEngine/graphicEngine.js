@@ -40,7 +40,7 @@ export function updateGraphicEngine() {
     const state = store.getState();
 
     // update player position
-    state.gameScene.player.update();
+    state.gameScene.player.render();
 
     // update main scene depends on camera
     state.gameEngine.graphicEngine.stage.x = state.gameCamera.x;
