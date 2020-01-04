@@ -3,13 +3,13 @@
 import {
     createStore, applyMiddleware, combineReducers
 } from 'redux';
-import { all } from 'redux-saga/effects';
+// import { all } from 'redux-saga/effects';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 
 // Bootstrap reducers
 const reducers_required = {};
-['menuLayer', 'uiLayer', 'camera'].forEach(reducer => {
+['layerMenu', 'layerUI', 'gameCamera', 'gameScene', 'gameEngine'].forEach(reducer => {
     reducers_required[reducer] = require(`./modules/${ reducer }/reducer`).default;
 });
 const reducers = combineReducers(reducers_required);
@@ -23,10 +23,10 @@ const middlewares = IS_PRODUCTION ? applyMiddleware(sagaMiddleware)
 const state = {};
 const store = createStore(reducers, state, middlewares);
 
-// Start Saga
-function *RootSaga() {
-    yield all(['test'].map(saga => require(`./modules/${ saga }/saga`).default()));
-}
-sagaMiddleware.run(RootSaga);
+// // Start Saga
+// function *RootSaga() {
+//     yield all(['test'].map(saga => require(`./modules/${ saga }/saga`).default()));
+// }
+// sagaMiddleware.run(RootSaga);
 
 export default store;

@@ -1,64 +1,39 @@
 // Libs
 import React, { useState, useEffect } from 'react';
 import {
-    World, Box, Body, ContactEquation
+    Box, Body
 } from 'p2';
 import * as PIXI from 'pixi.js';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withTranslation } from 'react-i18next';
 import store from '../../store';
 
 // Components
+import loadTextures from './loadTextures';
 import {
     COLLISION_GROUP_PLAYER,
     COLLISION_GROUP_ENEMY,
     COLLISION_GROUP_GROUND,
     COLLISION_GROUP_RAMP,
-    PLAYER_MATERIAL,
-    CONTACT_MATERIAL_PLAYER_GROUND,
-    computeBForRamp
+    PLAYER_MATERIAL
 } from '../../utils/physic';
-import loadTextures from './loadTextures';
-import { moveCamera, zoomCamera, setCameraPosition } from '../camera/actions';
+import {
+    moveCamera,
+    zoomCamera,
+    setCameraPosition
+} from '../gameCamera/actions';
+import {
+    toggleDebugLayer
+} from './actions';
+import initPhysicEngine from './physicEngine';
+import initGraphicEngine from './graphicEngine';
 
-// used to track button state
+// vars used in engines
 let debugButtonPushed = false;
 let leftButtonPushed = false;
 let rightButtonPushed = false;
-
-// Graphical stuff
-const app = new PIXI.Application({
-    backgroundColor: 0x333333,
-    resolution: 1,
-    antialias: false,
-    forceFXAA: false,
-    transparent: false
-});
-PIXI.loader = new PIXI.Loader();
-PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-app.renderer.autoResize = true;
-app.stage.autoResize = true;
-app.view.style.width = `${window.innerWidth}px`;
-app.view.style.height = `${window.innerHeighth}px`;
-app.renderer.resize(window.innerWidth, window.innerHeight);
-
-// Camera stuff
-let newCameraX;
-let newCameraY;
-const camera = {};
-
-// Physical stuff
-const physicWorld = new World({
-    gravity: [0, 9.82]
-});
-physicWorld.solver.iterations = 1;
-physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
-ContactEquation.prototype.computeB = computeBForRamp; // change computeB to block player on ramp
-const collisionLayer = new PIXI.Graphics();
-collisionLayer.visible = false;
-collisionLayer.zIndex = 1000;
+let newCameraX = 0;
+let newCameraY = 0;
 const FPS_WANTED = 60;
+
 
 /**
  * ******************************
@@ -72,18 +47,19 @@ const player = new Body({
 });
 const playerSprite = PIXI.Sprite.from(PIXI.Texture.WHITE);
 
-physicWorld.on('postStep', () => {
-    if (!debugButtonPushed) {
-        if (rightButtonPushed) {
-            player.velocity[0] = 10;
-        }
-        if (leftButtonPushed) {
-            player.velocity[0] = -10;
-        }
-    }
-});
-
 const initTestComponent = () => {
+    const state = store.getState();
+
+    state.gameEngine.physicEngine.on('postStep', () => {
+        if (!debugButtonPushed) {
+            if (rightButtonPushed) {
+                player.velocity[0] = 10;
+            }
+            if (leftButtonPushed) {
+                player.velocity[0] = -10;
+            }
+        }
+    });
     const playerShape = new Box({
         width: 10,
         height: 10,
@@ -93,13 +69,13 @@ const initTestComponent = () => {
         material: PLAYER_MATERIAL
     });
     player.addShape(playerShape);
-    physicWorld.addBody(player);
+    state.gameEngine.physicEngine.addBody(player);
 
     playerSprite.x = player.position[0];
     playerSprite.y = player.position[1] - playerSprite.height / 2;
     playerSprite.width = player.shapes[0].width;
     playerSprite.height = player.shapes[0].height;
-    app.stage.addChild(playerSprite);
+    state.gameEngine.graphicEngine.stage.addChild(playerSprite);
 };
 /**
  * ****************************
@@ -115,7 +91,7 @@ const handlePointerMove = e => {
 const handleKeyDown = e => {
     if (e.key === 'Control') {
         debugButtonPushed = !debugButtonPushed;
-        collisionLayer.visible = !collisionLayer.visible;
+        store.dispatch(toggleDebugLayer());
     }
     if (e.key === 'ArrowLeft') {
         leftButtonPushed = true;
@@ -141,26 +117,29 @@ const handleKeyUp = e => {
     }
 };
 const handleMouseWheel = e => {
+    const state = store.getState();
     if (e.deltaY > 0) {
-        store.dispatch(zoomCamera(Math.max(0.5, camera.zoom - 0.1)));
+        store.dispatch(zoomCamera(Math.max(0.5, state.gameCamera.zoom - 0.1)));
     } else {
-        store.dispatch(zoomCamera(Math.min(4, camera.zoom + 0.1)));
+        store.dispatch(zoomCamera(Math.min(4, state.gameCamera.zoom + 0.1)));
     }
     e.stopPropagation();
 };
 const handleResize = () => {
-    app.renderer.resize(window.innerWidth, window.innerHeight);
-    app.view.style.width = `${window.innerWidth}px`;
-    app.view.style.height = `${window.innerHeighth}px`;
+    const state = store.getState();
+    state.gameEngine.graphicEngine.renderer.resize(window.innerWidth, window.innerHeight);
+    state.gameEngine.graphicEngine.view.style.width = `${window.innerWidth}px`;
+    state.gameEngine.graphicEngine.view.style.height = `${window.innerHeighth}px`;
 };
 
 // Game loop function
 const gameLoopFunction = dt => {
+    const state = store.getState();
     if (!debugButtonPushed) {
-        newCameraX = -player.position[0] * camera.zoom + app.view.width / 2;
-        newCameraY = -player.position[1] * camera.zoom + app.view.height / 2;
-        if (camera.x !== newCameraX
-            || camera.y !== newCameraY
+        newCameraX = -player.position[0] * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.width / 2;
+        newCameraY = -player.position[1] * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.height / 2;
+        if (state.gameCamera.x !== newCameraX
+            || state.gameCamera.y !== newCameraY
         ) {
             store.dispatch(setCameraPosition(newCameraX, newCameraY));
         }
@@ -169,13 +148,13 @@ const gameLoopFunction = dt => {
     playerSprite.x = player.position[0] - playerSprite.width / 2;
     playerSprite.y = player.position[1] - playerSprite.height / 2;
 
-    app.stage.x = camera.x;
-    app.stage.y = camera.y;
-    app.stage.scale.x = camera.zoom;
-    app.stage.scale.y = camera.zoom;
+    state.gameEngine.graphicEngine.stage.x = state.gameCamera.x;
+    state.gameEngine.graphicEngine.stage.y = state.gameCamera.y;
+    state.gameEngine.graphicEngine.stage.scale.x = state.gameCamera.zoom;
+    state.gameEngine.graphicEngine.stage.scale.y = state.gameCamera.zoom;
 
     // TODO :update game physic slower
-    physicWorld.step(1 / FPS_WANTED, dt);
+    state.gameEngine.physicEngine.step(1 / FPS_WANTED, dt);
 };
 
 // Initialisation script, a promise!
@@ -186,32 +165,35 @@ const init = level => new Promise(resolvInitialisation => {
     window.addEventListener('wheel', handleMouseWheel, false);
     window.addEventListener('resize', handleResize, false);
 
+    initPhysicEngine();
+    initGraphicEngine();
+
+    // initPhysicalEngine();
+    // initGraphicEngine();
+
     // Load textures
     loadTextures().then(() => {
         const Level = require(`../../levels/${level}`); // eslint-disable-line
-        Level.loadScene(app.stage, physicWorld, collisionLayer);
+        const state = store.getState();
+        Level.loadScene();
 
         // add WebGL canvas container to DOM
-        document.getElementById('ViewPort').appendChild(app.view);
+        document.getElementById('ViewPort').appendChild(state.gameEngine.graphicEngine.view);
         resolvInitialisation();
     });
 });
 
 // Start game loop fn
 const start = () => {
-    console.log('Here is physic world:', physicWorld); // eslint-disable-line no-console
+    const state = store.getState();
+    console.log('Here is physic world:', state.gameEngine.physicalEngine); // eslint-disable-line no-console
 
     initTestComponent();
-    app.ticker.add(gameLoopFunction);
+    state.gameEngine.graphicEngine.ticker.add(gameLoopFunction);
 };
 
 const GameEngine = props => {
     const [status, setStatus] = useState('loading');
-
-    // Update camera on application update
-    camera.x = props.camera.x;
-    camera.y = props.camera.y;
-    camera.zoom = props.camera.zoom;
 
     useEffect(() => {
         setStatus(`initializing ${props.level}`);
@@ -226,13 +208,4 @@ const GameEngine = props => {
     );
 };
 
-const mapStoreToProps = _store => ({
-    camera: _store.camera
-});
-
-const enhance = compose(
-    connect(mapStoreToProps),
-    withTranslation()
-);
-
-export default enhance(GameEngine);
+export default GameEngine;

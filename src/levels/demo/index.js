@@ -1,7 +1,7 @@
 import {
     Box,
     Body,
-    // Plane,
+    Plane,
     Convex
 } from 'p2';
 import {
@@ -13,10 +13,13 @@ import {
 } from '../../utils/physic';
 
 import collisionItems from './collisionItems.json';
+import store from '../../store';
 
 const PIXI = require('pixi.js');
 
-const loadCollision = (scene, physicWorld, collisionLayer) => {
+const loadCollision = () => {
+    const state = store.getState();
+    const { graphicEngine, physicEngine, debugLayer } = state.gameEngine;
     collisionItems.list.forEach(item => {
         // debug view
         let body;
@@ -39,17 +42,17 @@ const loadCollision = (scene, physicWorld, collisionLayer) => {
 
                 // move shape to start at coord origin
                 body.addShape(shape);
-                physicWorld.addBody(body);
+                physicEngine.addBody(body);
 
                 // draw debug form
-                collisionLayer.beginFill(0xFF0000, 0.50);
-                collisionLayer.drawRect(
+                debugLayer.beginFill(0xFF0000, 0.50);
+                debugLayer.drawRect(
                     item.x - item.width / 2,
                     item.y - item.height / 2,
                     item.width,
                     item.height
                 );
-                collisionLayer.endFill();
+                debugLayer.endFill();
                 break;
 
             case 'polygone':
@@ -67,22 +70,22 @@ const loadCollision = (scene, physicWorld, collisionLayer) => {
                 });
 
                 body.addShape(shape);
-                physicWorld.addBody(body);
+                physicEngine.addBody(body);
 
                 // draw debug form
-                collisionLayer.beginFill(0xFF7700, 0.50);
-                collisionLayer.moveTo(
+                debugLayer.beginFill(0xFF7700, 0.50);
+                debugLayer.moveTo(
                     item.vertices[0][0] + item.x,
                     item.vertices[0][1] + item.y
                 );
                 item.vertices.slice(1).forEach(vertice => {
-                    collisionLayer.lineTo(
+                    debugLayer.lineTo(
                         vertice[0] + item.x,
                         vertice[1] + item.y
                     );
                 });
-                collisionLayer.closePath();
-                collisionLayer.endFill();
+                debugLayer.closePath();
+                debugLayer.endFill();
                 break;
 
             default:
@@ -90,46 +93,44 @@ const loadCollision = (scene, physicWorld, collisionLayer) => {
         }
     });
 
-    scene.addChild(collisionLayer);
+    graphicEngine.stage.addChild(debugLayer);
 };
 
-export function loadScene(scene, physicWorld, collisionLayer) {
+export function loadScene() {
+    const state = store.getState();
+    const { graphicEngine, physicEngine } = state.gameEngine;
     const bgLevel = PIXI.Sprite.from('level.png');
     bgLevel.x = 0;
     bgLevel.y = 0;
     bgLevel.width = 1968;
     bgLevel.height = 304;
     bgLevel.zIndex = 0;
-    scene.addChild(bgLevel);
+    graphicEngine.stage.addChild(bgLevel);
 
-    // const ceil = new Body();
-    // ceil.addShape(new Plane());
-    // physicWorld.addBody(ceil);
+    const ceil = new Body();
+    ceil.addShape(new Plane());
+    physicEngine.addBody(ceil);
 
-    // const floor = new Body({
-    //     position: [bgLevel.x, bgLevel.height],
-    //     angle: Math.PI
-    // });
-    // floor.addShape(new Plane());
-    // physicWorld.addBody(floor);
+    const floor = new Body({
+        position: [bgLevel.x, bgLevel.height],
+        angle: Math.PI
+    });
+    floor.addShape(new Plane());
+    physicEngine.addBody(floor);
 
-    // const left = new Body({
-    //     position: [bgLevel.x, bgLevel.y],
-    //     angle: 3 * Math.PI / 2
-    // });
-    // left.addShape(new Plane());
-    // physicWorld.addBody(left);
+    const left = new Body({
+        position: [bgLevel.x, bgLevel.y],
+        angle: 3 * Math.PI / 2
+    });
+    left.addShape(new Plane());
+    physicEngine.addBody(left);
 
-    // const right = new Body({
-    //     position: [bgLevel.width, bgLevel.y],
-    //     angle: Math.PI / 2
-    // });
-    // right.addShape(new Plane());
-    // physicWorld.addBody(right);
-
-    // });
-    // ceil.addShape(new Plane());
-    // physicWorld.addBody(ceil);
+    const right = new Body({
+        position: [bgLevel.width, bgLevel.y],
+        angle: Math.PI / 2
+    });
+    right.addShape(new Plane());
+    physicEngine.addBody(right);
 
     const frames = [];
     frames.push(PIXI.utils.TextureCache['adventurer-swrd-drw-00.png']);
@@ -190,7 +191,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     spriteAnimated.height = 37;
     spriteAnimated.animationSpeed = 0.3;
     spriteAnimated.play();
-    scene.addChild(spriteAnimated);
+    graphicEngine.stage.addChild(spriteAnimated);
 
     // // test frames
     // const frames2 = [];
@@ -224,7 +225,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated2.height = 74;
     // spriteAnimated2.animationSpeed = 0.2;
     // spriteAnimated2.play();
-    // scene.addChild(spriteAnimated2);
+    // graphicEngine.stage.addChild(spriteAnimated2);
 
     // // test frames
     // const frames3 = [];
@@ -242,7 +243,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated3.height = 74;
     // spriteAnimated3.animationSpeed = 0.15;
     // spriteAnimated3.play();
-    // scene.addChild(spriteAnimated3);
+    // graphicEngine.stage.addChild(spriteAnimated3);
 
     // // test frames
     // const frames4 = [];
@@ -269,7 +270,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated4.height = 74;
     // spriteAnimated4.animationSpeed = 0.2;
     // spriteAnimated4.play();
-    // scene.addChild(spriteAnimated4);
+    // graphicEngine.stage.addChild(spriteAnimated4);
 
     // // test frames
     // const frames5 = [];
@@ -286,7 +287,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated5.height = 74;
     // spriteAnimated5.animationSpeed = 0.15;
     // spriteAnimated5.play();
-    // scene.addChild(spriteAnimated5);
+    // graphicEngine.stage.addChild(spriteAnimated5);
 
     // // test frames
     // const frames6 = [];
@@ -313,7 +314,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated6.height = 74;
     // spriteAnimated6.animationSpeed = 0.2;
     // spriteAnimated6.play();
-    // scene.addChild(spriteAnimated6);
+    // graphicEngine.stage.addChild(spriteAnimated6);
 
     // // test frames
     // const frames7 = [];
@@ -327,7 +328,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated7.height = 74;
     // spriteAnimated7.animationSpeed = 0.2;
     // spriteAnimated7.play();
-    // scene.addChild(spriteAnimated7);
+    // graphicEngine.stage.addChild(spriteAnimated7);
 
     // // test frames
     // const frames8 = [];
@@ -353,7 +354,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated8.height = 74;
     // spriteAnimated8.animationSpeed = 0.2;
     // spriteAnimated8.play();
-    // scene.addChild(spriteAnimated8);
+    // graphicEngine.stage.addChild(spriteAnimated8);
 
     // // test frames
     // const frames9 = [];
@@ -374,7 +375,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated9.height = 74;
     // spriteAnimated9.animationSpeed = 0.2;
     // spriteAnimated9.play();
-    // scene.addChild(spriteAnimated9);
+    // graphicEngine.stage.addChild(spriteAnimated9);
 
     // // test frames
     // const frames10 = [];
@@ -387,7 +388,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated10.height = 74;
     // spriteAnimated10.animationSpeed = 0.2;
     // spriteAnimated10.play();
-    // scene.addChild(spriteAnimated10);
+    // graphicEngine.stage.addChild(spriteAnimated10);
 
     // // test frames
     // const frames11 = [];
@@ -404,7 +405,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated11.height = 74;
     // spriteAnimated11.animationSpeed = 0.15;
     // spriteAnimated11.play();
-    // scene.addChild(spriteAnimated11);
+    // graphicEngine.stage.addChild(spriteAnimated11);
 
     // // test frames
     // const frames12 = [];
@@ -421,7 +422,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated12.height = 74;
     // spriteAnimated12.animationSpeed = 0.15;
     // spriteAnimated12.play();
-    // scene.addChild(spriteAnimated12);
+    // graphicEngine.stage.addChild(spriteAnimated12);
 
     // // test frames
     // const frames13 = [];
@@ -441,7 +442,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated13.height = 74;
     // spriteAnimated13.animationSpeed = 0.15;
     // spriteAnimated13.play();
-    // scene.addChild(spriteAnimated13);
+    // graphicEngine.stage.addChild(spriteAnimated13);
 
     // // test frames
     // const frames14 = [];
@@ -456,7 +457,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated14.height = 74;
     // spriteAnimated14.animationSpeed = 0.20;
     // spriteAnimated14.play();
-    // scene.addChild(spriteAnimated14);
+    // graphicEngine.stage.addChild(spriteAnimated14);
 
     // // test frames
     // const frames15 = [];
@@ -480,7 +481,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated15.height = 74;
     // spriteAnimated15.animationSpeed = 0.20;
     // spriteAnimated15.play();
-    // scene.addChild(spriteAnimated15);
+    // graphicEngine.stage.addChild(spriteAnimated15);
 
     // // test frames
     // const frames16 = [];
@@ -499,7 +500,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated16.height = 74;
     // spriteAnimated16.animationSpeed = 0.20;
     // spriteAnimated16.play();
-    // scene.addChild(spriteAnimated16);
+    // graphicEngine.stage.addChild(spriteAnimated16);
 
     // // test frames
     // const frames17 = [];
@@ -520,7 +521,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated17.height = 74;
     // spriteAnimated17.animationSpeed = 0.20;
     // spriteAnimated17.play();
-    // scene.addChild(spriteAnimated17);
+    // graphicEngine.stage.addChild(spriteAnimated17);
 
     // // test frames
     // const frames18 = [];
@@ -536,7 +537,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated18.height = 32;
     // spriteAnimated18.animationSpeed = 0.20;
     // spriteAnimated18.play();
-    // scene.addChild(spriteAnimated18);
+    // graphicEngine.stage.addChild(spriteAnimated18);
     // const frames18_1 = [];
     // frames18_1.push(PIXI.utils.TextureCache['torch-anim-00.png']);
     // frames18_1.push(PIXI.utils.TextureCache['torch-anim-01.png']);
@@ -550,7 +551,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated18_1.height = 32;
     // spriteAnimated18_1.animationSpeed = 0.20;
     // spriteAnimated18_1.play();
-    // scene.addChild(spriteAnimated18_1);
+    // graphicEngine.stage.addChild(spriteAnimated18_1);
     // const frames18_2 = [];
     // frames18_2.push(PIXI.utils.TextureCache['torch-anim-00.png']);
     // frames18_2.push(PIXI.utils.TextureCache['torch-anim-01.png']);
@@ -564,7 +565,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated18_2.height = 32;
     // spriteAnimated18_2.animationSpeed = 0.20;
     // spriteAnimated18_2.play();
-    // scene.addChild(spriteAnimated18_2);
+    // graphicEngine.stage.addChild(spriteAnimated18_2);
 
     // // test frames
     // const frames19 = [];
@@ -580,7 +581,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated19.height = 48;
     // spriteAnimated19.animationSpeed = 0.20;
     // spriteAnimated19.play();
-    // scene.addChild(spriteAnimated19);
+    // graphicEngine.stage.addChild(spriteAnimated19);
 
     // // test frames
     // const frames20 = [];
@@ -595,7 +596,7 @@ export function loadScene(scene, physicWorld, collisionLayer) {
     // spriteAnimated20.height = 64;
     // spriteAnimated20.animationSpeed = 0.10;
     // spriteAnimated20.play();
-    // scene.addChild(spriteAnimated20);
+    // graphicEngine.stage.addChild(spriteAnimated20);
 
-    loadCollision(scene, physicWorld, collisionLayer);
+    loadCollision();
 }

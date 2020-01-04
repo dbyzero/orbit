@@ -7,21 +7,21 @@ import i18n from './i18n';
 import store from './store';
 
 // SCSS
-import Layout from './modules/layout';
+import AppLayout from './modules/appLayout';
 import Loader from './modules/loader';
-import MenuLayer from './modules/menuLayer';
-import UILayer from './modules/uiLayer';
-import GameLayer from './modules/gameLayer';
+import LayerMenu from './modules/layerMenu';
+import LayerUI from './modules/layerUI';
+import LayerGame from './modules/layerGame';
 
 ReactDOM.render(
     <Suspense fallback={<Loader />}>
         <I18nextProvider i18n={i18n}>
             <Provider store={store}>
-                <Layout>
-                    <GameLayer />
-                    <UILayer />
-                    <MenuLayer />
-                </Layout>
+                <AppLayout>
+                    <LayerGame />
+                    <LayerUI />
+                    <LayerMenu />
+                </AppLayout>
             </Provider>
         </I18nextProvider>
     </Suspense>
