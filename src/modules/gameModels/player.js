@@ -72,10 +72,10 @@ class Player {
 }
 
 Player.prototype.setVelocity = function (x, y) {
-    if (x) {
+    if (x !== undefined) {
         this.physicObject.velocity[0] = x;
     }
-    if (y) {
+    if (y !== undefined) {
         this.physicObject.velocity[1] = y;
     }
 };
