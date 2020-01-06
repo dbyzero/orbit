@@ -10,8 +10,8 @@
 - DONE    - obj : object physic
 - DONE    - {} : animations
 - DONE    - currentAnimation
+- DONE Improve level loading (separate demo loading and standard login)
 
-- Improve level loading (separate demo loading and standard login)
 - Make player correct :
     - Animation
     - Interaction

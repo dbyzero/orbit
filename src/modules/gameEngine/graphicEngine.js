@@ -4,9 +4,6 @@ import {
     setGraphicEngine,
     setDebugLayer
 } from './actions';
-import {
-    setCameraPosition
-} from '../gameCamera/actions';
 
 export function initGraphicEngine() {
     // Graphical stuff
@@ -90,8 +87,6 @@ export function loadLevelGraphic(levelJson) {
     });
 }
 
-let newCameraX;
-let newCameraY;
 export function updateGraphicEngine() {
     const state = store.getState();
 
@@ -103,19 +98,6 @@ export function updateGraphicEngine() {
     state.gameEngine.graphicEngine.stage.y = state.gameCamera.y;
     state.gameEngine.graphicEngine.stage.scale.x = state.gameCamera.zoom;
     state.gameEngine.graphicEngine.stage.scale.y = state.gameCamera.zoom;
-
-    // follow player if in normal mode
-    if (state.gameEngine.debugModeActive === false) {
-        newCameraX = -state.gameScene.player.physicObject.position[0]
-            * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.width / 2;
-        newCameraY = -state.gameScene.player.physicObject.position[1]
-            * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.height / 2;
-        if (state.gameCamera.x !== newCameraX
-            || state.gameCamera.y !== newCameraY
-        ) {
-            store.dispatch(setCameraPosition(newCameraX, newCameraY));
-        }
-    }
 }
 
 export function showTest() {

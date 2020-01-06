@@ -140,8 +140,8 @@ const init = level => new Promise(resolv => {
 
 // Game loop function
 const gameLoopFunction = dt => {
-    updatePhysicEngine(dt);
     updateGraphicEngine();
+    updatePhysicEngine(dt);
 };
 
 // Start game loop fn
