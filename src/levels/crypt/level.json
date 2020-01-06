@@ -1,5 +1,7 @@
 {
-    "list": [
+    "width": 1968,
+    "height": 304,
+    "collisionItems": [
         {
             "x": 8,
             "y": 69.5,

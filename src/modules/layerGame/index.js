@@ -12,7 +12,7 @@ import './style.scss';
 const LayerGame = () => (
     <div className="gameLayer">
         <div>
-            <GameEngine level="demo" />
+            <GameEngine level="crypt" />
         </div>
     </div>
 );

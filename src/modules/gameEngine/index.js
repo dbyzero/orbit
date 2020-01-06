@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import store from '../../store';
 
 // Components
-import loadTextures from './loadTextures';
+import loadSpritesheet from '../../utils/loadSpritesheet';
+
+// Actions
 import {
     moveCamera,
     zoomCamera
@@ -14,13 +16,32 @@ import {
 import {
     setPlayer
 } from '../gameScene/actions';
-import { initPhysicEngine, updatePhysicEngine } from './physicEngine';
-import { initGraphicEngine, updateGraphicEngine } from './graphicEngine';
-import Player from '../gameModels/player';
 
+// Engines
+import { initPhysicEngine, loadLevelPhysic, updatePhysicEngine } from './physicEngine';
+import {
+    initGraphicEngine,
+    loadLevelGraphic,
+    updateGraphicEngine,
+    showTest
+} from './graphicEngine';
+
+// Model
+import Player from '../gameScene/player';
 // vars used in engines
 let leftButtonPushed = false;
 let rightButtonPushed = false;
+
+const initLevel = level => loadSpritesheet({
+    name: level,
+    jsonFile: require(`../../levels/${level}/spritesheet.json`),// eslint-disable-line
+    pngFile: `/levels/${level}/spritesheet.png`
+}).then(() => {
+    const levelInformation = require(`../../levels/${level}/level.json`);// eslint-disable-line
+    loadLevelPhysic(levelInformation);
+    loadLevelGraphic(levelInformation);
+    showTest();
+});
 
 const initPlayer = () => {
     const state = store.getState();
@@ -97,7 +118,7 @@ const handleResize = () => {
 };
 
 // Initialisation script, a promise!
-const init = level => new Promise(resolvInitialisation => {
+const init = level => new Promise(resolv => {
     window.addEventListener('pointermove', handlePointerMove, false);
     window.addEventListener('keydown', handleKeyDown, false);
     window.addEventListener('keyup', handleKeyUp, false);
@@ -106,18 +127,15 @@ const init = level => new Promise(resolvInitialisation => {
 
     initPhysicEngine();
     initGraphicEngine();
-    initPlayer();
 
-    // Load textures
-    loadTextures().then(() => {
-        const Level = require(`../../levels/${level}`); // eslint-disable-line
-        const state = store.getState();
-        Level.loadScene();
-
-        // add WebGL canvas container to DOM
-        document.getElementById('ViewPort').appendChild(state.gameEngine.graphicEngine.view);
-        resolvInitialisation();
-    });
+    return loadSpritesheet({
+        name: 'game',
+        jsonFile: require('../../levels/game.json'), // eslint-disable-line
+        pngFile: '/levels/game.png'
+    })
+        .then(() => initLevel(level))
+        .then(() => initPlayer())
+        .then(() => resolv());
 });
 
 // Game loop function

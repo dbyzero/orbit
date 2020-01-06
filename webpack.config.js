@@ -160,16 +160,12 @@ module.exports = function (env) {
                     to: 'assets/images'
                 },
                 {
-                    from: 'src/assets/sprites/',
-                    to: 'assets/sprites'
+                    from: 'src/levels/',
+                    to: 'levels'
                 },
                 {
                     from: 'src/assets/fonts/',
                     to: 'assets/fonts'
-                },
-                {
-                    from: 'src/assets/images/favicon.png',
-                    to: 'favicon.png'
                 }
             ]),
             new CompressionPlugin()

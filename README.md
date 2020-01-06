@@ -2,18 +2,21 @@
 
 ## TODO
 
-- DONE Travailler camera DONE
-- DONE Travailler resize DONE
-- DONE Travailler zoom DONE
-- DONE Les useReducers ne sont pas transverse. Voir comment utiliser les contextes DONE (utilisation de redux)
-- DONE - Travailler clean code pour player :
+- DONE work on camera DONE
+- DONE work on resize DONE
+- DONE work om zoom DONE
+- DONE work on application store sync
+- DONE - Work om players :
 - DONE    - obj : object physic
 - DONE    - {} : animations
 - DONE    - currentAnimation
 
-- Improve level loading
-- Travailler sur les animation du player
+- Improve level loading (separate demo loading and standard login)
+- Make player correct :
+    - Animation
+    - Interaction
+    - Emoticon ?
+
+- Add monsters
 
 - Travailler mobile (touch vs click/move)
-- Ajouter UI Mobile
-- Mettre CI pour test mobile
