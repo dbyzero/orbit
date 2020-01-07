@@ -40,7 +40,7 @@ export function loadLevelPhysic(levelJson) {
     // add plane
     const ceil = new Body();
     ceil.addShape(new Plane({
-        collisionGroup: COLLISION_GROUP_GROUND,
+        collisionGroup: COLLISION_GROUP_GROUND
     }));
     physicEngine.addBody(ceil);
 
@@ -49,7 +49,7 @@ export function loadLevelPhysic(levelJson) {
         angle: Math.PI
     });
     floor.addShape(new Plane({
-        collisionGroup: COLLISION_GROUP_GROUND,
+        collisionGroup: COLLISION_GROUP_GROUND
     }));
     physicEngine.addBody(floor);
 
@@ -58,7 +58,7 @@ export function loadLevelPhysic(levelJson) {
         angle: 3 * Math.PI / 2
     });
     left.addShape(new Plane({
-        collisionGroup: COLLISION_GROUP_GROUND,
+        collisionGroup: COLLISION_GROUP_GROUND
     }));
     physicEngine.addBody(left);
 
@@ -67,7 +67,7 @@ export function loadLevelPhysic(levelJson) {
         angle: Math.PI / 2
     });
     right.addShape(new Plane({
-        collisionGroup: COLLISION_GROUP_GROUND,
+        collisionGroup: COLLISION_GROUP_GROUND
     }));
     physicEngine.addBody(right);
 
