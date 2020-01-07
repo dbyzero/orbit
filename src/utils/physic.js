@@ -20,25 +20,25 @@ export const CONTACT_MATERIAL_PLAYER_GROUND = new ContactMaterial(
 const addSubSub = (out, a, b, c, d) => {
     out[0] = a[0] + b[0] - c[0] - d[0];
     out[1] = a[1] + b[1] - c[1] - d[1];
-}
+};
 
-export const computeBForRamp = function(a,b,h){
-    var bi = this.bodyA,
-        bj = this.bodyB,
-        ri = this.contactPointA,
-        rj = this.contactPointB,
-        xi = bi.position,
-        xj = bj.position;
+export const computeBForRamp = function (a, b, h) {
+    const bi = this.bodyA;
+    const bj = this.bodyB;
+    const ri = this.contactPointA;
+    const rj = this.contactPointB;
+    const xi = bi.position;
+    const xj = bj.position;
 
-    var n = this.normalA,
-        G = this.G;
+    const n = this.normalA;
+    const G = this.G;
 
     // Caluclate cross products
-    var rixn = vec2.crossLength(ri,n),
-        rjxn = vec2.crossLength(rj,n);
+    const rixn = vec2.crossLength(ri, n);
+    const rjxn = vec2.crossLength(rj, n);
 
     // HERE IS THE CUSTOM TRICK
-    var isRamp = (bi.shapes[0].collisionGroup | bj.shapes[0].collisionGroup) === (COLLISION_GROUP_RAMP | COLLISION_GROUP_PLAYER);
+    const isRamp = (bi.shapes[0].collisionGroup | bj.shapes[0].collisionGroup) === (COLLISION_GROUP_RAMP | COLLISION_GROUP_PLAYER);
     // G = [-n -rixn n rjxn]
     G[0] = isRamp ? 0 : -n[0]; // HACK
     G[1] = -n[1];
@@ -48,20 +48,21 @@ export const computeBForRamp = function(a,b,h){
     G[5] = rjxn;
 
     // Compute iteration
-    var GW, Gq;
-    if(this.firstImpact && this.restitution !== 0){
+    let GW; let
+        Gq;
+    if (this.firstImpact && this.restitution !== 0) {
         Gq = 0;
-        GW = (1/b)*(1+this.restitution) * this.computeGW();
+        GW = 1 / b * (1 + this.restitution) * this.computeGW();
     } else {
         // Calculate q = xj+rj -(xi+ri) i.e. the penetration vector
-        var penetrationVec = this.penetrationVec;
-        addSubSub(penetrationVec,xj,rj,xi,ri);
-        Gq = vec2.dot(n,penetrationVec) + this.offset;
+        const penetrationVec = this.penetrationVec;
+        addSubSub(penetrationVec, xj, rj, xi, ri);
+        Gq = vec2.dot(n, penetrationVec) + this.offset;
         GW = this.computeGW();
     }
 
-    var GiMf = this.computeGiMf();
-    var B = - Gq * a - GW * b - h*GiMf;
+    const GiMf = this.computeGiMf();
+    const B = -Gq * a - GW * b - h * GiMf;
 
     return B;
 };
