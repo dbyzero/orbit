@@ -164,42 +164,42 @@ export function showTest() {
     spriteAnimated.animationSpeed = 0.3;
     spriteAnimated.play();
     graphicEngine.stage.addChild(spriteAnimated);
+    const frames2 = [];
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-02.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-03.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack2-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack2-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack2-02.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-rdy-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-00.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-01.png']);
+    frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-02.png']);
+    const spriteAnimated2 = new PIXI.AnimatedSprite(frames2);
+    spriteAnimated2.x = 200;
+    spriteAnimated2.y = 100;
+    spriteAnimated2.width = 50;
+    spriteAnimated2.height = 37;
+    spriteAnimated2.animationSpeed = 0.2;
+    spriteAnimated2.play();
+    graphicEngine.stage.addChild(spriteAnimated2);
 }
 
 
 // // test frames
-// const frames2 = [];
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-02.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack1-03.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack2-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack2-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack2-02.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-loop-01.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack3-rdy-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-00.png']);
-// frames2.push(PIXI.utils.TextureCache['adventurer-air-attack-3-end-01.png']);
-// frames2.push(PI`XI.utils.TextureCache['adventurer-air-attack-3-end-02.png']);
-// const spriteAnimated2 = new PIXI.AnimatedSprite(frames2);
-// spriteAnimated2.x = 200;
-// spriteAnimated2.y = 100;
-// spriteAnimated2.width = 100;
-// spriteAnimated2.height = 74;
-// spriteAnimated2.animationSpeed = 0.2;
-// spriteAnimated2.play();
-// graphicEngine.stage.addChild(spriteAnimated2);
 
 // // test frames
 // const frames3 = [];

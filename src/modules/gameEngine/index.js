@@ -49,18 +49,16 @@ const initPlayer = () => {
         x: 330,
         y: 100,
         mass: 10,
-        width: 10,
-        height: 10
+        width: 14,
+        height: 25
     });
     store.dispatch(setPlayer(player));
     state.gameEngine.physicEngine.on('postStep', () => {
-        if (state.gameEngine.debugModeActive === false) {
-            if (rightButtonPushed) {
-                player.setVelocity(10);
-            }
-            if (leftButtonPushed) {
-                player.setVelocity(-10);
-            }
+        if (rightButtonPushed) {
+            player.setVelocity(10);
+        }
+        if (leftButtonPushed) {
+            player.setVelocity(-10);
         }
     });
 };

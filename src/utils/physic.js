@@ -38,7 +38,8 @@ export const computeBForRamp = function (a, b, h) {
     const rjxn = vec2.crossLength(rj, n);
 
     // HERE IS THE CUSTOM TRICK
-    const isRamp = (bi.shapes[0].collisionGroup | bj.shapes[0].collisionGroup) === (COLLISION_GROUP_RAMP | COLLISION_GROUP_PLAYER);
+    const isRamp = (bi.shapes[0].collisionGroup | bj.shapes[0].collisionGroup)
+        === (COLLISION_GROUP_RAMP | COLLISION_GROUP_PLAYER);
     // G = [-n -rixn n rjxn]
     G[0] = isRamp ? 0 : -n[0]; // HACK
     G[1] = -n[1];
