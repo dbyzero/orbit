@@ -18,7 +18,9 @@ export const CONTACT_MATERIAL_PLAYER_GROUND = new ContactMaterial(
 );
 
 const addSubSub = (out, a, b, c, d) => {
+    // eslint-disable-next-line no-param-reassign
     out[0] = a[0] + b[0] - c[0] - d[0];
+    // eslint-disable-next-line no-param-reassign
     out[1] = a[1] + b[1] - c[1] - d[1];
 };
 

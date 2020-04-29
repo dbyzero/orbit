@@ -6,3 +6,10 @@ export function setPlayer(player) {
         }
     };
 }
+
+export function addPhysicalItem(physicalItem) {
+    return {
+        type: 'ADD_PHYSICAL_ITEM',
+        payload: physicalItem
+    };
+}

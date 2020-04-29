@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>pixijs</string>
         <key>textureFileName</key>
-        <filename>game.png</filename>
+        <filename>../../levels/game.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>game.json</filename>
+                <filename>../../levels/game.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -411,6 +411,32 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../sprites/levels/crypt/barrel-00.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>3,5,7,11</rect>
+                <key>scale9Paddings</key>
+                <rect>3,5,7,11</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../sprites/levels/crypt/rollingrock-00.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9Paddings</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -614,6 +640,8 @@
             <filename>../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-03.png</filename>
             <filename>../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-04.png</filename>
             <filename>../sprites/adventurer/Adventurer-Hand-Combat/Individual Sprites/adventurer-wall-run-05.png</filename>
+            <filename>../sprites/levels/crypt/barrel-00.png</filename>
+            <filename>../sprites/levels/crypt/rollingrock-00.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

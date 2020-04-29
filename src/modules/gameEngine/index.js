@@ -14,7 +14,8 @@ import {
     toggleDebugMode
 } from './actions';
 import {
-    setPlayer
+    setPlayer,
+    addPhysicalItem
 } from '../gameScene/actions';
 
 // Engines
@@ -28,6 +29,8 @@ import {
 
 // Model
 import Player from '../gameScene/player';
+import PhysicalItem from '../gameScene/physicalItem';
+
 // vars used in engines
 let leftButtonPushed = false;
 let rightButtonPushed = false;
@@ -46,7 +49,7 @@ const initLevel = level => loadSpritesheet({
 const initPlayer = () => {
     const state = store.getState();
     const player = new Player({
-        x: 330,
+        x: 950,
         y: 100,
         mass: 10,
         width: 14,
@@ -55,10 +58,10 @@ const initPlayer = () => {
     store.dispatch(setPlayer(player));
     state.gameEngine.physicEngine.on('postStep', () => {
         if (rightButtonPushed) {
-            player.setVelocity(10);
+            player.setVelocity(20);
         }
         if (leftButtonPushed) {
-            player.setVelocity(-10);
+            player.setVelocity(-20);
         }
     });
 };
@@ -86,6 +89,15 @@ const handleKeyDown = e => {
     }
     if (e.key === 'r') {
         store.dispatch(zoomCamera(1));
+    }
+    if (e.key === 'x') {
+        const physicalItem = new PhysicalItem({
+            x: 950,
+            y: 100,
+            mass: 1,
+            radius: 32
+        });
+        store.dispatch(addPhysicalItem(physicalItem));
     }
 };
 const handleKeyUp = e => {
@@ -139,13 +151,15 @@ const init = level => new Promise(resolv => {
 // Game loop function
 const gameLoopFunction = dt => {
     updateGraphicEngine();
-    updatePhysicEngine(dt);
 };
 
 // Start game loop fn
 const start = () => {
     const state = store.getState();
     state.gameEngine.graphicEngine.ticker.add(gameLoopFunction);
+    setInterval(() => {
+        updatePhysicEngine(16.6);
+    }, 16.6);
 };
 
 const GameEngine = props => {

@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>pixijs</string>
         <key>textureFileName</key>
-        <filename>crypt.png</filename>
+        <filename>../../levels/crypt/spritesheet.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -150,7 +150,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>crypt.json</filename>
+                <filename>../../levels/crypt/spritesheet.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -209,19 +209,6 @@
                 <rect>7,11,14,22</rect>
                 <key>scale9Paddings</key>
                 <rect>7,11,14,22</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../sprites/levels/crypt/barrel.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>3,5,7,11</rect>
-                <key>scale9Paddings</key>
-                <rect>3,5,7,11</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -450,7 +437,6 @@
             <filename>../sprites/levels/crypt/water-deep/water-anim-02.png</filename>
             <filename>../sprites/levels/crypt/water-deep/water-anim-03.png</filename>
             <filename>../sprites/levels/crypt/armor.png</filename>
-            <filename>../sprites/levels/crypt/barrel.png</filename>
             <filename>../sprites/levels/crypt/box.png</filename>
             <filename>../sprites/levels/crypt/chain-cross.png</filename>
             <filename>../sprites/levels/crypt/chain.png</filename>

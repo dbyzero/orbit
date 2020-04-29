@@ -14,12 +14,7 @@ import {
 import {
     setPhysicEngine
 } from './actions';
-import {
-    setCameraPosition
-} from '../gameCamera/actions';
 
-let newCameraX;
-let newCameraY;
 const FPS_WANTED = 60;
 
 export function initPhysicEngine() {
@@ -27,7 +22,7 @@ export function initPhysicEngine() {
         gravity: [0, 9.82]
     });
     physicWorld.solver.iterations = 1;
-    physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
+    // physicWorld.addContactMaterial(CONTACT_MATERIAL_PLAYER_GROUND);
     ContactEquation.prototype.computeB = computeBForRamp; // change computeB to block player on ramp
 
     store.dispatch(setPhysicEngine(physicWorld));
@@ -120,17 +115,4 @@ export function loadLevelPhysic(levelJson) {
 export function updatePhysicEngine(dt) {
     const state = store.getState();
     state.gameEngine.physicEngine.step(1 / FPS_WANTED, dt);
-
-    // follow player if in normal mode
-    if (state.gameEngine.debugModeActive === false) {
-        newCameraX = -state.gameScene.player.physicObject.position[0]
-            * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.width / 2;
-        newCameraY = -state.gameScene.player.physicObject.position[1]
-            * state.gameCamera.zoom + state.gameEngine.graphicEngine.view.height / 2;
-        if (state.gameCamera.x !== newCameraX
-            || state.gameCamera.y !== newCameraY
-        ) {
-            store.dispatch(setCameraPosition(newCameraX, newCameraY));
-        }
-    }
 }

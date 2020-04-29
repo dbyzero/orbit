@@ -3,7 +3,8 @@ const initialState = {
     monsters: {},
     players: {},
     projectiles: {},
-    items: {}
+    items: {},
+    physicalItems: []
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +36,9 @@ export default (state = initialState, action) => {
             return newState;
         case 'REMOVE_ITEM':
             delete newState.items[action.payload.item.id];
+            return newState;
+        case 'ADD_PHYSICAL_ITEM':
+            newState.physicalItems.push(action.payload);
             return newState;
         case 'LOGOUT':
             return initialState;

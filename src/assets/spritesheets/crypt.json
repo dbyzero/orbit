@@ -227,10 +227,10 @@
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "spritesheet.png",
+	"image": "crypt.png",
 	"format": "RGBA8888",
 	"size": {"w":1970,"h":384},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5e2fa8bedb742deff194318e411facb8:3ba442a2c76d919c640e3524686b6fce:729adc6043343cfda41c447ce8f464d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:23d066cc1deb4695c084cf57ad2f1af1:8f8f9a6d276e1524703bb0766e6b9dee:19ce11d3e6204e94685de093c3a91c1c$"
 }
 }
