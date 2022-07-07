@@ -29,7 +29,7 @@
         "i18next-browser-languagedetector": "^2.2.0",
         "i18next-xhr-backend": "^1.5.1",
         "log-level": "^1.1.0",
-        "moment": "^2.22.2",
+        "moment": "^2.29.4",
         "pixi.js": "^5.1.1",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
